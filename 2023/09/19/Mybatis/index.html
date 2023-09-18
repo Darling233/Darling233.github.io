@@ -1,32 +1,311 @@
-extends includes/layout.pug
-
-block content
-  #post
-    if top_img === false
-      include includes/header/post-info.pug
-
-    article#article-container.post-content!=page.content
-    include includes/post/post-copyright.pug
-    .tag_share
-      if (theme.post_meta.post.tags)
-        .post-meta__tag-list
-          each item, index in page.tags.data
-            a(href=url_for(item.path)).post-meta__tags #[=item.name]
-      include includes/third-party/share/index.pug
-        
-    if theme.reward.enable && theme.reward.QR_code
-      !=partial('includes/post/reward', {}, {cache: true})
-
-    //- ad
-    if theme.ad && theme.ad.post
-      .ads-wrap!=theme.ad.post
-
-    if theme.post_pagination
-      include includes/pagination.pug
-    if theme.related_post && theme.related_post.enable
-      != related_posts(page,site.posts)
-
-    if page.comments !== false && theme.comments && theme.comments.use
-      - var commentsJsLoad = true
-      !=partial('includes/third-party/comments/index', {}, {cache: true})
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Darling的小屋 | Darling的小屋</title><meta name="author" content="Darling"><meta name="copyright" content="Darling"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Mybatis简介：MyBatis 是一款优秀的持久层框架，它支持自定义 SQL、存储过程以及高级映射。MyBatis 免除了几乎所有的 JDBC 代码以及设置参数和获取结果集的工作。MyBatis 可以通过简单的 XML 或注解来配置和映射原始类型、接口和 Java POJO（Plain Old Java Objects，普通老式 Java 对象）为数据库中的记录。  mybatis-comfi">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Darling的小屋">
+<meta property="og:url" content="https://darling233.github.io/2023/09/19/Mybatis/index.html">
+<meta property="og:site_name" content="Darling的小屋">
+<meta property="og:description" content="Mybatis简介：MyBatis 是一款优秀的持久层框架，它支持自定义 SQL、存储过程以及高级映射。MyBatis 免除了几乎所有的 JDBC 代码以及设置参数和获取结果集的工作。MyBatis 可以通过简单的 XML 或注解来配置和映射原始类型、接口和 Java POJO（Plain Old Java Objects，普通老式 Java 对象）为数据库中的记录。  mybatis-comfi">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png">
+<meta property="article:published_time" content="2023-09-18T20:21:57.483Z">
+<meta property="article:modified_time" content="2023-07-09T07:09:19.393Z">
+<meta property="article:author" content="Darling">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://darling233.github.io/2023/09/19/Mybatis/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Darling的小屋',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-07-09 15:09:19'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
       
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="Darling的小屋" type="application/atom+xml">
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">8</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><hr class="custom-hr"/></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="Darling的小屋"><span class="site-name">Darling的小屋</span></a></span><div id="menus"><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">无题</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-09-18T20:21:57.483Z" title="发表于 2023-09-19 04:21:57">2023-09-19</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-07-09T07:09:19.393Z" title="更新于 2023-07-09 15:09:19">2023-07-09</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="Mybatis"><a href="#Mybatis" class="headerlink" title="Mybatis"></a>Mybatis</h1><p><strong>简介</strong>：MyBatis 是一款优秀的持久层框架，它支持自定义 SQL、存储过程以及高级映射。MyBatis 免除了几乎所有的 JDBC 代码以及设置参数和获取结果集的工作。MyBatis 可以通过简单的 XML 或注解来配置和映射原始类型、接口和 Java POJO（Plain Old Java Objects，普通老式 Java 对象）为数据库中的记录。</p>
+<ul>
+<li><p>mybatis-comfig.xml 核心配置文件</p>
+</li>
+<li><pre><code class="xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF8&quot; ?&gt;
+&lt;!DOCTYPE configuration
+        PUBLIC &quot;-//mybatis.org//DTD Config 3.0//EN&quot;
+        &quot;http://mybatis.org/dtd/mybatis-3-config.dtd&quot;&gt;
+&lt;configuration&gt;
+
+    &lt;typeAliases&gt;
+        &lt;package name=&quot;com.itheima.pojo&quot;/&gt;
+    &lt;/typeAliases&gt;
+    
+    &lt;!--
+    environments：配置数据库连接环境信息。可以配置多个environment，通过default属性切换不同的environment
+    --&gt;
+    &lt;environments default=&quot;development&quot;&gt;
+        &lt;environment id=&quot;development&quot;&gt;
+            &lt;transactionManager type=&quot;JDBC&quot;/&gt;
+            &lt;dataSource type=&quot;POOLED&quot;&gt;
+                &lt;!--数据库连接信息--&gt;
+                &lt;property name=&quot;driver&quot; value=&quot;com.mysql.jdbc.Driver&quot;/&gt;
+                &lt;property name=&quot;url&quot; value=&quot;jdbc:mysql:///mybatis?useSSL=false&quot;/&gt;
+                &lt;property name=&quot;username&quot; value=&quot;root&quot;/&gt;
+                &lt;property name=&quot;password&quot; value=&quot;password&quot;/&gt;
+            &lt;/dataSource&gt;
+        &lt;/environment&gt;
+        
+    &lt;/environments&gt;
+    &lt;mappers&gt;
+        &lt;!--加载sql映射文件--&gt;
+        &lt;mapper resource=&quot;com/itheima/mapper/UserMapper.xml&quot;/&gt;
+    &lt;/mappers&gt;
+    
+&lt;/configuration&gt;
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">* Mapper.xml  Sql语句映射文件</span><br><span class="line"></span><br><span class="line">* ```xml</span><br><span class="line">  &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF8&quot; ?&gt;</span><br><span class="line">  &lt;!DOCTYPE mapper</span><br><span class="line">          PUBLIC &quot;-//mybatis.org//DTD Mapper 3.0//EN&quot;</span><br><span class="line">          &quot;http://mybatis.org/dtd/mybatis-3-mapper.dtd&quot;&gt;</span><br><span class="line">  </span><br><span class="line">  &lt;!--</span><br><span class="line">      namespace:名称空间</span><br><span class="line">  --&gt;</span><br><span class="line">  </span><br><span class="line">  &lt;mapper namespace=&quot;test&quot;&gt;</span><br><span class="line">  </span><br><span class="line">      &lt;!--statement--&gt;</span><br><span class="line">      &lt;select id=&quot;selectAll&quot; resultType=&quot;com.itheima.pojo.User&quot;&gt;</span><br><span class="line">          select *</span><br><span class="line">          from tb_user;</span><br><span class="line">      &lt;/select&gt;</span><br><span class="line">  &lt;!--    &lt;select id=&quot;selectById&quot; resultType=&quot;user&quot;&gt;</span><br><span class="line">          select *</span><br><span class="line">          from tb_user where id = #&#123;id&#125;;</span><br><span class="line">  </span><br><span class="line">      &lt;/select&gt;--&gt;</span><br><span class="line">  </span><br><span class="line">  </span><br><span class="line">      &lt;select id=&quot;select&quot; resultType=&quot;user&quot;&gt;</span><br><span class="line">          select *</span><br><span class="line">          from tb_user</span><br><span class="line">          where</span><br><span class="line">              username = #&#123;arg0&#125;</span><br><span class="line">          and password = #&#123;param2&#125;</span><br><span class="line">      &lt;/select&gt;</span><br></pre></td></tr></table></figure>
+
+</code></pre>
+</li>
+<li><p>Mybatis启动过程</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//1. 加载mybatis的核心配置文件，获取 SqlSessionFactory</span></span><br><span class="line"><span class="type">String</span> <span class="variable">resource</span> <span class="operator">=</span> <span class="string">&quot;mybatis-config.xml&quot;</span>;</span><br><span class="line"><span class="type">InputStream</span> <span class="variable">inputStream</span> <span class="operator">=</span> Resources.getResourceAsStream(resource);</span><br><span class="line"><span class="type">SqlSessionFactory</span> <span class="variable">sqlSessionFactory</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">SqlSessionFactoryBuilder</span>().build(inputStream);</span><br><span class="line"></span><br><span class="line"><span class="comment">//2. 获取SqlSession对象，用它来执行sql</span></span><br><span class="line"><span class="type">SqlSession</span> <span class="variable">sqlSession</span> <span class="operator">=</span> sqlSessionFactory.openSession();</span><br><span class="line"><span class="comment">//3. 执行sql</span></span><br><span class="line">List&lt;User&gt; users = sqlSession.selectList(<span class="string">&quot;test.selectAll&quot;</span>);</span><br><span class="line">System.out.println(users);</span><br><span class="line"><span class="comment">//4. 释放资源</span></span><br><span class="line">sqlSession.close();</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="Mapper代理开发"><a href="#Mapper代理开发" class="headerlink" title="Mapper代理开发"></a>Mapper代理开发</h2><ul>
+<li>规则</li>
+<li><img src="C:\Users\14115\AppData\Roaming\Typora\typora-user-images\image-20230708165915388.png" alt="image-20230708165915388"></li>
+</ul>
+<p><strong>resources下建立与Mapper相同的结构，这样编译后Mapper接口和Sql映射文件就在同一目录下</strong></p>
+<p><img src="C:\Users\14115\AppData\Roaming\Typora\typora-user-images\image-20230708170106936.png" alt="image-20230708170106936"></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//获取UserMapper代理的接口对象</span></span><br><span class="line"><span class="type">UserMapper</span> <span class="variable">userMapper</span> <span class="operator">=</span> sqlSession.getMapper(UserMapper.class);</span><br><span class="line">List&lt;User&gt; users = userMapper.selectAll();</span><br><span class="line">System.out.println(users);</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="Mybatis配置"><a href="#Mybatis配置" class="headerlink" title="Mybatis配置"></a>Mybatis配置</h2><p><strong>enviroment配置多个数据库信息，通过defaule属性切换不同的enviroment</strong></p>
+<p><strong>typeAliases可以给包取别名，默认别名为类名，不区分大小写</strong></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">typeAliases</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">package</span> <span class="attr">name</span>=<span class="string">&quot;com.itheima.pojo&quot;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">typeAliases</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>配置文件标签顺序如图</strong></p>
+<p><img src="C:\Users\14115\AppData\Roaming\Typora\typora-user-images\image-20230708172109249.png" alt="image-20230708172109249"></p>
+<h2 id="配置文件完成增删改查"><a href="#配置文件完成增删改查" class="headerlink" title="配置文件完成增删改查"></a>配置文件完成增删改查</h2><ul>
+<li><p>MybatisX插件</p>
+<p><strong>方便Mapper与映射文件之间跳转，也提供一些快捷操作</strong></p>
+</li>
+<li><p>数据库表的字段名需要和实体类属性名一直，否则无法自动封装数据，为null</p>
+<pre><code>  1. 在sql语句中取别名，让别名和实体属性一样
+  1. 通过sql片段集中起别名，之后要用只需调用
+</code></pre>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;sql id=<span class="string">&quot;brand_column&quot;</span>&gt;</span><br><span class="line">       brand_name as brandName</span><br><span class="line">   &lt;/sql&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">   &lt;select id=<span class="string">&quot;selectAll&quot;</span> resultType=<span class="string">&quot;brand&quot;</span>&gt;</span><br><span class="line">       select &lt;include refid=<span class="string">&quot;brand_column&quot;</span>&gt;&lt;/include&gt; from tb_brand;</span><br><span class="line">   &lt;/select&gt;</span><br></pre></td></tr></table></figure>
+
+<p>3、重映射名称</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;mapper namespace=<span class="string">&quot;com.itheima.mapper.BrandMapper&quot;</span>&gt;</span><br><span class="line"></span><br><span class="line">    &lt;resultMap id=<span class="string">&quot;brandResultMap&quot;</span> type=<span class="string">&quot;brand&quot;</span>&gt;</span><br><span class="line">        &lt;result column=<span class="string">&quot;brand_name&quot;</span> property=<span class="string">&quot;brandName&quot;</span>/&gt;</span><br><span class="line">        &lt;result column=<span class="string">&quot;company_name&quot;</span> property=<span class="string">&quot;companyName&quot;</span>/&gt;</span><br><span class="line">    &lt;/resultMap&gt;</span><br><span class="line"></span><br><span class="line">    &lt;select id=<span class="string">&quot;selectAll&quot;</span> resultMap=<span class="string">&quot;brandResultMap&quot;</span>&gt;</span><br><span class="line">        select * from tb_brand;</span><br><span class="line">    &lt;/select&gt;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<ul>
+<li><p>参数占位符</p>
+<ol>
+<li><p>#{ }	会将其替换为？，可以防止sql注入</p>
+</li>
+<li><p>${ }    拼sql</p>
+</li>
+</ol>
+</li>
+<li><p>解决特殊字符</p>
+<ol>
+<li>使用转义字符</li>
+<li>CDATA区   （输入CD，再回车即可）</li>
+</ol>
+</li>
+</ul>
+<h2 id="查询"><a href="#查询" class="headerlink" title="查询"></a>查询</h2><h3 id="按条件查询"><a href="#按条件查询" class="headerlink" title="按条件查询"></a>按条件查询</h3><ul>
+<li><p>参数设置</p>
+<ol>
+<li><p>散装参数</p>
+<p>使用@Param匹配</p>
+</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">List&lt;Brand&gt; <span class="title function_">selectByCondition</span><span class="params">(<span class="meta">@Param(&quot;status&quot;)</span> <span class="type">int</span> status,<span class="meta">@Param(&quot;companyName&quot;)</span> String companyName,<span class="meta">@Param(&quot;brandName&quot;)</span> String brandName)</span>;</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li><p>实体类封装参数</p>
+</li>
+<li><p>map集合</p>
+<p>@Test<br>public void testSelectByCondition() throws IOException {<br>&#x2F;&#x2F;接收参数<br>int status &#x3D; 1;<br>String companyName &#x3D; “华为”;<br>String brandName &#x3D; “华为”;<br><br>&#x2F;&#x2F; 处理参数<br>companyName &#x3D; “%” + companyName + “%”;<br>brandName &#x3D; “%” + brandName + “%”;<br><br>Map map &#x3D; new HashMap();<br>map.put(“status”,status);<br>map.put(“companyName”,companyName);<br>map.put(“brandName”,brandName);<br><br><br>&#x2F;&#x2F;1. 获取SqlSessionFactory<br>String resource &#x3D; “mybatis-config.xml”;<br>InputStream inputStream &#x3D; Resources.getResourceAsStream(resource);<br>SqlSessionFactory sqlSessionFactory &#x3D; new SqlSessionFactoryBuilder().build(inputStream);<br><br><br>&#x2F;&#x2F;2. 获取SqlSession对象<br>SqlSession sqlSession &#x3D; sqlSessionFactory.openSession();<br><br>&#x2F;&#x2F;3. 获取Mapper接口的代理对象<br>BrandMapper brandMapper &#x3D; sqlSession.getMapper(BrandMapper.class);<br><br>&#x2F;&#x2F;4. 执行方法<br>List<Brand> brands &#x3D; brandMapper.selectByCondition(map);<br>System.out.println(brands);<br><br>&#x2F;&#x2F;5. 释放资源<br>sqlSession.close();<br>}</p>
+</li>
+</ol>
+</li>
+</ul>
+<h4 id="动态条件查询-动态SQL"><a href="#动态条件查询-动态SQL" class="headerlink" title="动态条件查询  动态SQL"></a>动态条件查询  动态SQL</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&lt;select id=<span class="string">&quot;selectByCondition&quot;</span> resultMap=<span class="string">&quot;brandResultMap&quot;</span>&gt;</span><br><span class="line">    select *</span><br><span class="line">    from tb_brand</span><br><span class="line">    where</span><br><span class="line">        &lt;<span class="keyword">if</span> test=<span class="string">&quot;status !=null&quot;</span>&gt;</span><br><span class="line">            status = #&#123;status&#125;</span><br><span class="line">        &lt;/<span class="keyword">if</span>&gt;</span><br><span class="line"></span><br><span class="line">    &lt;<span class="keyword">if</span> test=<span class="string">&quot;companyName !=null and companyName !=&#x27;&#x27; &quot;</span>&gt;</span><br><span class="line">        and company_name like #&#123;companyName&#125;</span><br><span class="line">    &lt;/<span class="keyword">if</span>&gt;</span><br><span class="line"></span><br><span class="line">    &lt;<span class="keyword">if</span> test=<span class="string">&quot;brandName !=null and brandName !=&#x27;&#x27; &quot;</span>&gt;</span><br><span class="line">        and brand_name like #&#123;brandName&#125;</span><br><span class="line">    &lt;/<span class="keyword">if</span>&gt;</span><br><span class="line">&lt;/select&gt;</span><br></pre></td></tr></table></figure>
+
+
+
+<ul>
+<li>使用where解决and的Sql语法错误</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&lt;where&gt;</span><br><span class="line">    &lt;<span class="keyword">if</span> test=<span class="string">&quot;status !=null&quot;</span>&gt;</span><br><span class="line">        status = #&#123;status&#125;</span><br><span class="line">    &lt;/<span class="keyword">if</span>&gt;</span><br><span class="line"></span><br><span class="line">    &lt;<span class="keyword">if</span> test=<span class="string">&quot;companyName !=null and companyName !=&#x27;&#x27; &quot;</span>&gt;</span><br><span class="line">        and company_name like #&#123;companyName&#125;</span><br><span class="line">    &lt;/<span class="keyword">if</span>&gt;</span><br><span class="line"></span><br><span class="line">    &lt;<span class="keyword">if</span> test=<span class="string">&quot;brandName !=null and brandName !=&#x27;&#x27; &quot;</span>&gt;</span><br><span class="line">        and brand_name like #&#123;brandName&#125;</span><br><span class="line">    &lt;/<span class="keyword">if</span>&gt;</span><br><span class="line">&lt;/where&gt;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>使用1 &#x3D; 1恒等式解决SQL语法错误</li>
+</ul>
+<h2 id="添加"><a href="#添加" class="headerlink" title="添加"></a>添加</h2><ul>
+<li>主键返回</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;insert id=<span class="string">&quot;add&quot;</span> useGeneratedKeys=<span class="string">&quot;true&quot;</span> keyProperty=<span class="string">&quot;id&quot;</span>&gt;</span><br><span class="line">    insert into <span class="title function_">tb_brand</span> <span class="params">(brand_name, company_name, ordered, description, status)</span></span><br><span class="line">    values(#&#123;brandName&#125;,#&#123;companyName&#125;,#&#123;ordered&#125;,#&#123;description&#125;,#&#123;status&#125;);</span><br><span class="line">&lt;/insert&gt;</span><br></pre></td></tr></table></figure>
+
+<p>*使用set标签规避sql语法错误</p>
+<h2 id="删除"><a href="#删除" class="headerlink" title="删除"></a>删除</h2><ul>
+<li>批量删除</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;delete id=<span class="string">&quot;deletebyIds&quot;</span>&gt;</span><br><span class="line">    delete from tb_brand where id</span><br><span class="line">    <span class="title function_">in</span> <span class="params">(</span></span><br><span class="line"><span class="params">        &lt;foreach collection=<span class="string">&quot;ids&quot;</span> item=<span class="string">&quot;id&quot;</span> separator=<span class="string">&quot;,&quot;</span>&gt;</span></span><br><span class="line"><span class="params">            #&#123;id&#125;</span></span><br><span class="line"><span class="params">        &lt;/foreach&gt;</span></span><br><span class="line"><span class="params">                                   )</span>;</span><br><span class="line">&lt;/delete&gt;</span><br></pre></td></tr></table></figure>
+
+
+
+<ul>
+<li><p>collection为Map集合，应为array。可以再BrandMapper中给参数起别名</p>
+</li>
+<li><pre><code class="java">void deletebyIds(@Param(&quot;ids&quot;) int[] ids);
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">## 参数封装</span><br><span class="line"></span><br><span class="line">![image-20230709150211146](C:\Users\14115\AppData\Roaming\Typora\typora-user-images\image-20230709150211146.png)</span><br><span class="line"></span><br><span class="line">* 使用@param注解修改默认的键名</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">## 注解开发</span><br><span class="line"></span><br><span class="line">* 简单的sql功能可以用注解开发</span><br><span class="line"></span><br><span class="line">  ```java</span><br><span class="line">  @Select(&quot;select * from tb_brand where id = #&#123;id&#125;&quot;)</span><br><span class="line">  Brand selectById(int id);</span><br></pre></td></tr></table></figure>
+</code></pre>
+</li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://darling233.github.io">Darling</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://darling233.github.io/2023/09/19/Mybatis/">https://darling233.github.io/2023/09/19/Mybatis/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://darling233.github.io" target="_blank">Darling的小屋</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2023/09/19/Redis/" title=""><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info"></div></div></a></div><div class="next-post pull-right"><a href="/2023/09/19/hello-world/" title="Hello World"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Hello World</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Darling</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">8</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Mybatis"><span class="toc-number">1.</span> <span class="toc-text">Mybatis</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Mapper%E4%BB%A3%E7%90%86%E5%BC%80%E5%8F%91"><span class="toc-number">1.1.</span> <span class="toc-text">Mapper代理开发</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Mybatis%E9%85%8D%E7%BD%AE"><span class="toc-number">1.2.</span> <span class="toc-text">Mybatis配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E5%AE%8C%E6%88%90%E5%A2%9E%E5%88%A0%E6%94%B9%E6%9F%A5"><span class="toc-number">1.3.</span> <span class="toc-text">配置文件完成增删改查</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9F%A5%E8%AF%A2"><span class="toc-number">1.4.</span> <span class="toc-text">查询</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8C%89%E6%9D%A1%E4%BB%B6%E6%9F%A5%E8%AF%A2"><span class="toc-number">1.4.1.</span> <span class="toc-text">按条件查询</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8A%A8%E6%80%81%E6%9D%A1%E4%BB%B6%E6%9F%A5%E8%AF%A2-%E5%8A%A8%E6%80%81SQL"><span class="toc-number">1.4.1.1.</span> <span class="toc-text">动态条件查询  动态SQL</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B7%BB%E5%8A%A0"><span class="toc-number">1.5.</span> <span class="toc-text">添加</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%A0%E9%99%A4"><span class="toc-number">1.6.</span> <span class="toc-text">删除</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/09/19/html/" title="无题">无题</a><time datetime="2023-09-18T20:25:37.328Z" title="发表于 2023-09-19 04:25:37">2023-09-19</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/09/19/java/" title="无题">无题</a><time datetime="2023-09-18T20:25:29.615Z" title="发表于 2023-09-19 04:25:29">2023-09-19</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/09/19/Regex/" title="无题">无题</a><time datetime="2023-09-18T20:24:45.958Z" title="发表于 2023-09-19 04:24:45">2023-09-19</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/09/19/SSM/" title="无题">无题</a><time datetime="2023-09-18T20:24:23.724Z" title="发表于 2023-09-19 04:24:23">2023-09-19</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/09/19/mysql/" title="无题">无题</a><time datetime="2023-09-18T20:24:17.535Z" title="发表于 2023-09-19 04:24:17">2023-09-19</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By Darling</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

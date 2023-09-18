@@ -1,32 +1,261 @@
-extends includes/layout.pug
-
-block content
-  #post
-    if top_img === false
-      include includes/header/post-info.pug
-
-    article#article-container.post-content!=page.content
-    include includes/post/post-copyright.pug
-    .tag_share
-      if (theme.post_meta.post.tags)
-        .post-meta__tag-list
-          each item, index in page.tags.data
-            a(href=url_for(item.path)).post-meta__tags #[=item.name]
-      include includes/third-party/share/index.pug
-        
-    if theme.reward.enable && theme.reward.QR_code
-      !=partial('includes/post/reward', {}, {cache: true})
-
-    //- ad
-    if theme.ad && theme.ad.post
-      .ads-wrap!=theme.ad.post
-
-    if theme.post_pagination
-      include includes/pagination.pug
-    if theme.related_post && theme.related_post.enable
-      != related_posts(page,site.posts)
-
-    if page.comments !== false && theme.comments && theme.comments.use
-      - var commentsJsLoad = true
-      !=partial('includes/third-party/comments/index', {}, {cache: true})
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Darling的小屋 | Darling的小屋</title><meta name="author" content="Darling"><meta name="copyright" content="Darling"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="面向对象与面向过程 面向对象（OOP）:   1.物以类聚,先解决问题需要哪些分类,再对分类进行单独思      ​      考.最后对分类下的细节进行面向过程的思考    2.适用于复杂、需要多人协作的问题.  本质：以类的方式组织代码，以对象的组织（封装）数据。 三大特性：封装、继承、多态 对象是具体的事物，类是从对象中抽象出来。类是对象的模板。  方法调用:yin_yang: 方法：非静态">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Darling的小屋">
+<meta property="og:url" content="https://darling233.github.io/2023/09/19/java/index.html">
+<meta property="og:site_name" content="Darling的小屋">
+<meta property="og:description" content="面向对象与面向过程 面向对象（OOP）:   1.物以类聚,先解决问题需要哪些分类,再对分类进行单独思      ​      考.最后对分类下的细节进行面向过程的思考    2.适用于复杂、需要多人协作的问题.  本质：以类的方式组织代码，以对象的组织（封装）数据。 三大特性：封装、继承、多态 对象是具体的事物，类是从对象中抽象出来。类是对象的模板。  方法调用:yin_yang: 方法：非静态">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png">
+<meta property="article:published_time" content="2023-09-18T20:25:29.615Z">
+<meta property="article:modified_time" content="2021-09-15T03:12:32.000Z">
+<meta property="article:author" content="Darling">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://darling233.github.io/2023/09/19/java/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Darling的小屋',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2021-09-15 11:12:32'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
       
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="Darling的小屋" type="application/atom+xml">
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">8</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><hr class="custom-hr"/></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="Darling的小屋"><span class="site-name">Darling的小屋</span></a></span><div id="menus"><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">无题</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-09-18T20:25:29.615Z" title="发表于 2023-09-19 04:25:29">2023-09-19</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2021-09-15T03:12:32.000Z" title="更新于 2021-09-15 11:12:32">2021-09-15</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="面向对象与面向过程"><a href="#面向对象与面向过程" class="headerlink" title="面向对象与面向过程"></a>面向对象与面向过程</h1><p><img src="C:\Users\梦中Darling\AppData\Roaming\Typora\typora-user-images\image-20210521224203664.png" alt="image-20210521224203664"></p>
+<h2 id="面向对象（OOP）"><a href="#面向对象（OOP）" class="headerlink" title="面向对象（OOP）:"></a>面向对象（OOP）:</h2><p>   1.物以类聚,先解决问题需要哪些分类,再对分类进行单独思     </p>
+<p>​      考.最后对分类下的细节进行面向过程的思考</p>
+<p>   2.适用于<strong>复杂、需要多人协作</strong>的问题.</p>
+<ol start="3">
+<li>本质：<strong>以类的方式组织代码，以对象的组织（封装）数据。</strong></li>
+<li>三大特性：<strong>封装、继承、多态</strong></li>
+<li>对象是具体的事物，类是从对象中抽象出来。<strong>类是对象的模板。</strong></li>
+</ol>
+<h2 id="方法调用-yin-yang"><a href="#方法调用-yin-yang" class="headerlink" title="方法调用:yin_yang:"></a>方法调用:yin_yang:</h2><ol>
+<li><p>方法：<img src="C:\Users\梦中Darling\AppData\Roaming\Typora\typora-user-images\image-20210521225126255.png" alt="image-20210521225126255"><strong>非静态实例化后才存在</strong></p>
+</li>
+<li><p>调用：</p>
+<p>​	a.静态调用非静态：对象类型 对象名 &#x3D; 对象值（需要先实例化</p>
+</li>
+<li><p>值传递与引用传递，值传递是实参传给形参，引用传递传地址？如person.name是一个具体的对象属性，为引用传递，可以改变属性。、</p>
+</li>
+</ol>
+<h2 id="创建对象-girl"><a href="#创建对象-girl" class="headerlink" title="创建对象:girl:"></a>创建对象:girl:</h2><p>(tip:类里面不应该有main方法，一个项目就一个main)</p>
+<ol>
+<li><p>创建类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.opp2;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Student</span> &#123;</span><br><span class="line">    <span class="comment">//属性</span></span><br><span class="line">    String name;</span><br><span class="line">    <span class="type">int</span> age;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//方法</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">study</span><span class="params">()</span>&#123;</span><br><span class="line">        System.out.println(<span class="built_in">this</span>.name+<span class="string">&quot;打游戏&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<p>2.实例化</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.opp2;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Application</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span>&#123;</span><br><span class="line">        <span class="type">Student</span> <span class="variable">Darling</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Student</span>();<span class="comment">//实例化</span></span><br><span class="line">        Darling.name=<span class="string">&quot;xiaohong&quot;</span>;</span><br><span class="line">        System.out.println(Darling.name);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="构造器-dagger"><a href="#构造器-dagger" class="headerlink" title="构造器:dagger:"></a>构造器:dagger:</h2><p><strong>实例化还会有构造器,作用是初始化</strong>,若定义了有参构造,无参必须显示定义.通过方法重载选择调用</p>
+<p>alt+insert()自动生成构造器</p>
+<h2 id="内存简单分析"><a href="#内存简单分析" class="headerlink" title="内存简单分析"></a>内存简单分析</h2><p><img src="C:\Users\梦中Darling\AppData\Roaming\Typora\typora-user-images\image-20210522091400569.png" alt="image-20210522091400569"></p>
+<p>栈中放方法、和引用一些变量名。堆中放方法区和类。</p>
+<p>所有对象都可调用静态方法</p>
+<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><p>类包括属性和方法</p>
+<p>类是一个模板，抽象的。而对象是一个具体的实例</p>
+<p>对象创建使用：必须使用new关键字创造对象，有构造器；对象的属性操作；对象的方法操作</p>
+<h2 id="封装"><a href="#封装" class="headerlink" title="封装"></a>封装</h2><p><img src="C:\Users\梦中Darling\AppData\Roaming\Typora\typora-user-images\image-20210528225901810.png" alt="image-20210528225901810"></p>
+<p>属性私有,流出get与set供调用</p>
+<h2 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h2><p><img src="C:\Users\梦中Darling\AppData\Roaming\Typora\typora-user-images\image-20210526224029113.png" alt="image-20210526224029113"></p>
+<p><strong>继承是宏观的把握</strong></p>
+<p>修饰符:</p>
+<p><img src="C:\Users\梦中Darling\AppData\Roaming\Typora\typora-user-images\image-20210526225147653.png" alt="image-20210526225147653"></p>
+<p>在java中,都默认继承object类</p>
+<h3 id="SUPER"><a href="#SUPER" class="headerlink" title="SUPER"></a>SUPER</h3><p><strong>this与super比较</strong>:</p>
+<p><em><strong>this</strong></em>:本身调用者这个对象</p>
+<p><em><strong>super</strong></em>:代表父类对象的引用,调用父类构造方法,必须在构造方法的第一个</p>
+<h2 id="方法的重写（override）"><a href="#方法的重写（override）" class="headerlink" title="方法的重写（override）"></a>方法的重写（override）</h2><p>重写是方法的重写,与属性无关</p>
+<p><img src="C:\Users\梦中Darling\AppData\Roaming\Typora\typora-user-images\image-20210528231803122.png" alt="image-20210528231803122"></p>
+<p>非静态、继承才有重写</p>
+<p><strong>注意</strong>：</p>
+<p><img src="C:\Users\梦中Darling\AppData\Roaming\Typora\typora-user-images\image-20210528232711354.png" alt="image-20210528232711354"></p>
+<p>重写的意义：父类的功能,子类不一定需要</p>
+<h2 id="多态"><a href="#多态" class="headerlink" title="多态"></a>多态</h2><p>可以实现动态编译</p>
+<p><img src="C:\Users\梦中Darling\AppData\Roaming\Typora\typora-user-images\image-20210529104526603.png" alt="image-20210529104526603"></p>
+<p>**多态的注意事项:**g</p>
+<ol>
+<li>方法才有多态,属性没有</li>
+<li>类之间要有继承关系、方法需要重写、父类引用指向子类对象</li>
+<li>重写才有多态</li>
+</ol>
+<p><strong>不能重写的情况：</strong></p>
+<ol>
+<li>static</li>
+<li>final，常量</li>
+<li>private 方法</li>
+</ol>
+<h3 id="instanceof"><a href="#instanceof" class="headerlink" title="instanceof"></a>instanceof</h3><p>instanceof：判断是否是某类型，两个类型要为父子关系。</p>
+<h3 id="类型转换"><a href="#类型转换" class="headerlink" title="类型转换"></a>类型转换</h3><p>低转高类型不需要强制转换</p>
+<p>高转低需要（低的类型）待转对象</p>
+<p>子类转换为父类，可能丢失一些方法；父转子可能丢失精度</p>
+<p>作用：方便方法的调用，通过升级和降级就可以调用一些方法，减少代码	</p>
+<h3 id="static"><a href="#static" class="headerlink" title="static"></a>static</h3><p>static可以多个类调用,适合多线程,因为随类加载</p>
+<p>非静态可以直接调用静态方法</p>
+<p><img src="C:\Users\梦中Darling\AppData\Roaming\Typora\typora-user-images\image-20210529160506587.png" alt="image-20210529160506587"></p>
+<h2 id="abstract关键词"><a href="#abstract关键词" class="headerlink" title="abstract关键词"></a>abstract关键词</h2><p>抽象方法,只有方法名字,没有方法的实现</p>
+<p><img src="C:\Users\梦中Darling\AppData\Roaming\Typora\typora-user-images\image-20210529164036379.png" alt="image-20210529164036379"></p>
+<p>作用:将一些东西抽象出来,再具体实现</p>
+<h2 id="接口"><a href="#接口" class="headerlink" title="接口"></a>接口</h2><p><em><strong>interface关键字</strong></em> </p>
+<p><img src="C:\Users\梦中Darling\AppData\Roaming\Typora\typora-user-images\image-20210529191526625.png" alt="image-20210529191526625"></p>
+<p><img src="C:\Users\梦中Darling\AppData\Roaming\Typora\typora-user-images\image-20210529192031031.png" alt="image-20210529192031031"></p>
+<h2 id="异常"><a href="#异常" class="headerlink" title="异常"></a>异常</h2><p><img src="C:\Users\梦中Darling\AppData\Roaming\Typora\typora-user-images\image-20210606145700324.png" alt="image-20210606145700324"></p>
+<p>finally可以用于io流的关闭</p>
+<p>catch中是想要捕获的类型,可以捕获多个异常,从小到大.</p>
+<h3 id="自定义异常"><a href="#自定义异常" class="headerlink" title="自定义异常"></a>自定义异常</h3><p>继承Exeception类</p>
+<h2 id="集合"><a href="#集合" class="headerlink" title="集合"></a>集合</h2><p><img src="C:\Users\梦中Darling\AppData\Roaming\Typora\typora-user-images\image-20210612161408332.png" alt="image-20210612161408332"></p>
+<p>  <img src="C:\Users\梦中Darling\AppData\Roaming\Typora\typora-user-images\image-20210612162407891.png" alt="image-20210612162407891"></p>
+<h2 id="注解-annotation"><a href="#注解-annotation" class="headerlink" title="注解(annotation)"></a>注解(annotation)</h2><p><img src="C:\Users\梦中Darling\AppData\Roaming\Typora\typora-user-images\image-20210612163902577.png" alt="image-20210612163902577"></p>
+<p><img src="C:\Users\梦中Darling\AppData\Roaming\Typora\typora-user-images\image-20210612164119438.png" alt="image-20210612164119438"></p>
+<p><img src="C:\Users\梦中Darling\AppData\Roaming\Typora\typora-user-images\image-20210612165123382.png" alt="image-20210612165123382"></p>
+<p><img src="C:\Users\梦中Darling\AppData\Roaming\Typora\typora-user-images\image-20210612175419040.png" alt="image-20210612175419040"></p>
+<p><img src="C:\Users\梦中Darling\AppData\Roaming\Typora\typora-user-images\image-20210612175928928.png" alt="image-20210612175928928"></p>
+<h2 id="反射"><a href="#反射" class="headerlink" title="反射"></a>反射</h2><p><img src="C:\Users\梦中Darling\AppData\Roaming\Typora\typora-user-images\image-20210619183555624.png"></p>
+<p><img src="C:\Users\梦中Darling\AppData\Roaming\Typora\typora-user-images\image-20210619183746629.png" alt="image-20210619183746629"></p>
+<p>Java反射机制提供的功能</p>
+<p><img src="C:\Users\梦中Darling\AppData\Roaming\Typora\typora-user-images\image-20210619183936271.png" alt="image-20210619183936271"></p>
+<p><img src="C:\Users\梦中Darling\AppData\Roaming\Typora\typora-user-images\image-20210619190045709.png" alt="image-20210619190045709"></p>
+<p><em><strong>String是引用数据类型,引用数据类型是分配在堆上,基本数据类型是分配在栈上</strong></em></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://darling233.github.io">Darling</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://darling233.github.io/2023/09/19/java/">https://darling233.github.io/2023/09/19/java/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://darling233.github.io" target="_blank">Darling的小屋</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2023/09/19/html/" title=""><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info"></div></div></a></div><div class="next-post pull-right"><a href="/2023/09/19/Regex/" title=""><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">下一篇</div><div class="next_info"></div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Darling</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">8</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E4%B8%8E%E9%9D%A2%E5%90%91%E8%BF%87%E7%A8%8B"><span class="toc-number">1.</span> <span class="toc-text">面向对象与面向过程</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%EF%BC%88OOP%EF%BC%89"><span class="toc-number">1.1.</span> <span class="toc-text">面向对象（OOP）:</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%B9%E6%B3%95%E8%B0%83%E7%94%A8-yin-yang"><span class="toc-number">1.2.</span> <span class="toc-text">方法调用:yin_yang:</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E5%AF%B9%E8%B1%A1-girl"><span class="toc-number">1.3.</span> <span class="toc-text">创建对象:girl:</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9E%84%E9%80%A0%E5%99%A8-dagger"><span class="toc-number">1.4.</span> <span class="toc-text">构造器:dagger:</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%85%E5%AD%98%E7%AE%80%E5%8D%95%E5%88%86%E6%9E%90"><span class="toc-number">1.5.</span> <span class="toc-text">内存简单分析</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B0%8F%E7%BB%93"><span class="toc-number">1.5.1.</span> <span class="toc-text">小结</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%81%E8%A3%85"><span class="toc-number">1.6.</span> <span class="toc-text">封装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%A7%E6%89%BF"><span class="toc-number">1.7.</span> <span class="toc-text">继承</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#SUPER"><span class="toc-number">1.7.1.</span> <span class="toc-text">SUPER</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%B9%E6%B3%95%E7%9A%84%E9%87%8D%E5%86%99%EF%BC%88override%EF%BC%89"><span class="toc-number">1.8.</span> <span class="toc-text">方法的重写（override）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%9A%E6%80%81"><span class="toc-number">1.9.</span> <span class="toc-text">多态</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#instanceof"><span class="toc-number">1.9.1.</span> <span class="toc-text">instanceof</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2"><span class="toc-number">1.9.2.</span> <span class="toc-text">类型转换</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#static"><span class="toc-number">1.9.3.</span> <span class="toc-text">static</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#abstract%E5%85%B3%E9%94%AE%E8%AF%8D"><span class="toc-number">1.10.</span> <span class="toc-text">abstract关键词</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8E%A5%E5%8F%A3"><span class="toc-number">1.11.</span> <span class="toc-text">接口</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%82%E5%B8%B8"><span class="toc-number">1.12.</span> <span class="toc-text">异常</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E5%BC%82%E5%B8%B8"><span class="toc-number">1.12.1.</span> <span class="toc-text">自定义异常</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%9B%86%E5%90%88"><span class="toc-number">1.13.</span> <span class="toc-text">集合</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B3%A8%E8%A7%A3-annotation"><span class="toc-number">1.14.</span> <span class="toc-text">注解(annotation)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%8D%E5%B0%84"><span class="toc-number">1.15.</span> <span class="toc-text">反射</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/09/19/html/" title="无题">无题</a><time datetime="2023-09-18T20:25:37.328Z" title="发表于 2023-09-19 04:25:37">2023-09-19</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/09/19/java/" title="无题">无题</a><time datetime="2023-09-18T20:25:29.615Z" title="发表于 2023-09-19 04:25:29">2023-09-19</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/09/19/Regex/" title="无题">无题</a><time datetime="2023-09-18T20:24:45.958Z" title="发表于 2023-09-19 04:24:45">2023-09-19</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/09/19/SSM/" title="无题">无题</a><time datetime="2023-09-18T20:24:23.724Z" title="发表于 2023-09-19 04:24:23">2023-09-19</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/09/19/mysql/" title="无题">无题</a><time datetime="2023-09-18T20:24:17.535Z" title="发表于 2023-09-19 04:24:17">2023-09-19</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By Darling</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
