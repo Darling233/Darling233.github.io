@@ -1,7 +1,7 @@
-https://darling233.github.io/2023/09/19/SSM/
-https://darling233.github.io/2023/09/19/Redis/
-https://darling233.github.io/2023/09/19/mysql/
-https://darling233.github.io/2023/09/19/Mybatis/
-https://darling233.github.io/2023/09/19/java/
-https://darling233.github.io/2023/09/19/html/
+https://darling233.github.io/2023/09/19/Redis-1/
+https://darling233.github.io/2023/09/19/SSM-1/
+https://darling233.github.io/2023/09/19/MySQL-0/
+https://darling233.github.io/2023/09/19/Mybatis-1/
+https://darling233.github.io/2023/09/19/Java-0/
+https://darling233.github.io/2023/09/19/html-1/
 https://darling233.github.io/
