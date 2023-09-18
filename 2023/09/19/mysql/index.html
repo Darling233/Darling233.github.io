@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="&#x2F;MySQL(最流行数据库管理系统之一,开源项目)web网站流程web页面-&gt;服务器-&gt;数据库  数组集合存储在内存，信息易丢失。 文件可以永久存储，但不易查询。 而MySQL既可以像文件一样永久存储，又有一套自己的查询管理系统。 数据库的概念 常见的数据库管理系统：MySql(现属于Oracle，开源免费）、Oracle(甲骨文公司，很贵）、DB2（IBM，适合处理海量数据">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://example.com/2023/09/19/mysql/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="&#x2F;MySQL(最流行数据库管理系统之一,开源项目)web网站流程web页面-&gt;服务器-&gt;数据库  数组集合存储在内存，信息易丢失。 文件可以永久存储，但不易查询。 而MySQL既可以像文件一样永久存储，又有一套自己的查询管理系统。 数据库的概念 常见的数据库管理系统：MySql(现属于Oracle，开源免费）、Oracle(甲骨文公司，很贵）、DB2（IBM，适合处理海量数据">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="c:\Users\%E6%A2%A6%E4%B8%ADDarling\AppData\Roaming\Typora\typora-user-images\image-20210710162928564.png">
+<meta property="og:image" content="c:\Users\%E6%A2%A6%E4%B8%ADDarling\AppData\Roaming\Typora\typora-user-images\image-20210710164042953.png">
+<meta property="og:image" content="c:\Users\%E6%A2%A6%E4%B8%ADDarling\AppData\Roaming\Typora\typora-user-images\image-20210710164405353.png">
+<meta property="og:image" content="c:\Users\%E6%A2%A6%E4%B8%ADDarling\AppData\Roaming\Typora\typora-user-images\image-20210711182652794.png">
+<meta property="og:image" content="c:\Users\%E6%A2%A6%E4%B8%ADDarling\AppData\Roaming\Typora\typora-user-images\image-20210801124526971.png">
+<meta property="og:image" content="c:\Users\%E6%A2%A6%E4%B8%ADDarling\AppData\Roaming\Typora\typora-user-images\image-20210801125039132.png">
+<meta property="og:image" content="c:\Users\%E6%A2%A6%E4%B8%ADDarling\AppData\Roaming\Typora\typora-user-images\image-20210801125648814.png">
+<meta property="og:image" content="c:\Users\%E6%A2%A6%E4%B8%ADDarling\AppData\Roaming\Typora\typora-user-images\image-20210801125812845.png">
+<meta property="og:image" content="c:\Users\%E6%A2%A6%E4%B8%ADDarling\AppData\Roaming\Typora\typora-user-images\image-20210819172415244.png">
+<meta property="og:image" content="c:\Users\%E6%A2%A6%E4%B8%ADDarling\AppData\Roaming\Typora\typora-user-images\image-20210821171823517.png">
+<meta property="og:image" content="c:\Users\%E6%A2%A6%E4%B8%ADDarling\AppData\Roaming\Typora\typora-user-images\image-20210821172239136.png">
+<meta property="og:image" content="c:\Users\%E6%A2%A6%E4%B8%ADDarling\AppData\Roaming\Typora\typora-user-images\image-20210821173924746.png">
+<meta property="og:image" content="c:\Users\%E6%A2%A6%E4%B8%ADDarling\AppData\Roaming\Typora\typora-user-images\image-20210821174516638.png">
+<meta property="og:image" content="c:\Users\%E6%A2%A6%E4%B8%ADDarling\AppData\Roaming\Typora\typora-user-images\image-20210821175237090.png">
+<meta property="og:image" content="c:\Users\%E6%A2%A6%E4%B8%ADDarling\AppData\Roaming\Typora\typora-user-images\image-20210821175109007.png">
+<meta property="og:image" content="c:\Users\%E6%A2%A6%E4%B8%ADDarling\AppData\Roaming\Typora\typora-user-images\image-20210821175335283.png">
+<meta property="og:image" content="c:\Users\%E6%A2%A6%E4%B8%ADDarling\AppData\Roaming\Typora\typora-user-images\image-20210821175651915.png">
+<meta property="og:image" content="c:\Users\%E6%A2%A6%E4%B8%ADDarling\AppData\Roaming\Typora\typora-user-images\image-20210905190610808.png">
+<meta property="og:image" content="c:\Users\%E6%A2%A6%E4%B8%ADDarling\AppData\Roaming\Typora\typora-user-images\image-20210908082602374.png">
+<meta property="og:image" content="c:\Users\%E6%A2%A6%E4%B8%ADDarling\AppData\Roaming\Typora\typora-user-images\image-20210908083342674.png">
+<meta property="og:image" content="c:\Users\%E6%A2%A6%E4%B8%ADDarling\AppData\Roaming\Typora\typora-user-images\image-20210908085000879.png">
+<meta property="og:image" content="c:\Users\%E6%A2%A6%E4%B8%ADDarling\AppData\Roaming\Typora\typora-user-images\image-20210908234230423.png">
+<meta property="og:image" content="c:\Users\%E6%A2%A6%E4%B8%ADDarling\AppData\Roaming\Typora\typora-user-images\image-20210908234455630.png">
+<meta property="og:image" content="c:\Users\%E6%A2%A6%E4%B8%ADDarling\AppData\Roaming\Typora\typora-user-images\image-20210908234509992.png">
+<meta property="og:image" content="c:\Users\%E6%A2%A6%E4%B8%ADDarling\AppData\Roaming\Typora\typora-user-images\image-20210908235059116.png">
+<meta property="og:image" content="c:\Users\%E6%A2%A6%E4%B8%ADDarling\AppData\Roaming\Typora\typora-user-images\image-20210908235453873.png">
+<meta property="og:image" content="c:\Users\%E6%A2%A6%E4%B8%ADDarling\AppData\Roaming\Typora\typora-user-images\image-20210908235726752.png">
+<meta property="og:image" content="c:\Users\%E6%A2%A6%E4%B8%ADDarling\AppData\Roaming\Typora\typora-user-images\image-20210908235903695.png">
+<meta property="og:image" content="c:\Users\%E6%A2%A6%E4%B8%ADDarling\AppData\Roaming\Typora\typora-user-images\image-20210909000041872.png">
+<meta property="og:image" content="c:\Users\%E6%A2%A6%E4%B8%ADDarling\AppData\Roaming\Typora\typora-user-images\image-20210909225228331.png">
+<meta property="og:image" content="c:\Users\%E6%A2%A6%E4%B8%ADDarling\AppData\Roaming\Typora\typora-user-images\image-20210909230002839.png">
+<meta property="og:image" content="c:\Users\%E6%A2%A6%E4%B8%ADDarling\AppData\Roaming\Typora\typora-user-images\image-20210909230058141.png">
+<meta property="og:image" content="c:\Users\%E6%A2%A6%E4%B8%ADDarling\AppData\Roaming\Typora\typora-user-images\image-20210909230159971.png">
+<meta property="og:image" content="c:\Users\%E6%A2%A6%E4%B8%ADDarling\AppData\Roaming\Typora\typora-user-images\image-20210909230726812.png">
+<meta property="og:image" content="c:\Users\%E6%A2%A6%E4%B8%ADDarling\AppData\Roaming\Typora\typora-user-images\image-20210909231223360.png">
+<meta property="og:image" content="c:\Users\%E6%A2%A6%E4%B8%ADDarling\AppData\Roaming\Typora\typora-user-images\image-20210909231434274.png">
+<meta property="og:image" content="c:\Users\%E6%A2%A6%E4%B8%ADDarling\AppData\Roaming\Typora\typora-user-images\image-20210909232906604.png">
+<meta property="og:image" content="c:\Users\%E6%A2%A6%E4%B8%ADDarling\AppData\Roaming\Typora\typora-user-images\image-20210909233642645.png">
+<meta property="og:image" content="c:\Users\%E6%A2%A6%E4%B8%ADDarling\AppData\Roaming\Typora\typora-user-images\image-20210909233836707.png">
+<meta property="og:image" content="c:\Users\%E6%A2%A6%E4%B8%ADDarling\AppData\Roaming\Typora\typora-user-images\image-20210909234439372.png">
+<meta property="og:image" content="c:\Users\%E6%A2%A6%E4%B8%ADDarling\AppData\Roaming\Typora\typora-user-images\image-20210910000014579.png">
+<meta property="og:image" content="c:\Users\%E6%A2%A6%E4%B8%ADDarling\AppData\Roaming\Typora\typora-user-images\image-20210910084752556.png">
+<meta property="og:image" content="c:\Users\%E6%A2%A6%E4%B8%ADDarling\AppData\Roaming\Typora\typora-user-images\image-20210910085121787.png">
+<meta property="og:image" content="c:\Users\%E6%A2%A6%E4%B8%ADDarling\AppData\Roaming\Typora\typora-user-images\image-20210910090420906.png">
+<meta property="og:image" content="c:\Users\%E6%A2%A6%E4%B8%ADDarling\AppData\Roaming\Typora\typora-user-images\image-20210910092156311.png">
+<meta property="og:image" content="c:\Users\%E6%A2%A6%E4%B8%ADDarling\AppData\Roaming\Typora\typora-user-images\image-20210910132056627.png">
+<meta property="og:image" content="c:\Users\%E6%A2%A6%E4%B8%ADDarling\AppData\Roaming\Typora\typora-user-images\image-20210910132651057.png">
+<meta property="og:image" content="c:\Users\%E6%A2%A6%E4%B8%ADDarling\AppData\Roaming\Typora\typora-user-images\image-20210910133104858.png">
+<meta property="og:image" content="c:\Users\%E6%A2%A6%E4%B8%ADDarling\AppData\Roaming\Typora\typora-user-images\image-20210910192527468.png">
+<meta property="og:image" content="c:\Users\%E6%A2%A6%E4%B8%ADDarling\AppData\Roaming\Typora\typora-user-images\image-20210910193517380.png">
+<meta property="og:image" content="c:\Users\%E6%A2%A6%E4%B8%ADDarling\AppData\Roaming\Typora\typora-user-images\image-20210910205912645.png">
+<meta property="og:image" content="c:\Users\%E6%A2%A6%E4%B8%ADDarling\AppData\Roaming\Typora\typora-user-images\image-20210910212225712.png">
+<meta property="og:image" content="c:\Users\%E6%A2%A6%E4%B8%ADDarling\AppData\Roaming\Typora\typora-user-images\image-20210910213205930.png">
+<meta property="og:image" content="c:\Users\%E6%A2%A6%E4%B8%ADDarling\AppData\Roaming\Typora\typora-user-images\image-20210910215135079.png">
+<meta property="og:image" content="c:\Users\%E6%A2%A6%E4%B8%ADDarling\AppData\Roaming\Typora\typora-user-images\image-20210911121915433.png">
+<meta property="og:image" content="c:\Users\%E6%A2%A6%E4%B8%ADDarling\AppData\Roaming\Typora\typora-user-images\image-20210911121843154.png">
+<meta property="og:image" content="c:\Users\%E6%A2%A6%E4%B8%ADDarling\AppData\Roaming\Typora\typora-user-images\image-20210911123130606.png">
+<meta property="og:image" content="c:\Users\%E6%A2%A6%E4%B8%ADDarling\AppData\Roaming\Typora\typora-user-images\image-20210911123421454.png">
+<meta property="og:image" content="c:\Users\%E6%A2%A6%E4%B8%ADDarling\AppData\Roaming\Typora\typora-user-images\image-20210911133033134.png">
+<meta property="og:image" content="c:\Users\%E6%A2%A6%E4%B8%ADDarling\AppData\Roaming\Typora\typora-user-images\image-20210911150926366.png">
+<meta property="og:image" content="c:\Users\%E6%A2%A6%E4%B8%ADDarling\AppData\Roaming\Typora\typora-user-images\image-20210911154136826.png">
+<meta property="og:image" content="c:\Users\%E6%A2%A6%E4%B8%ADDarling\AppData\Roaming\Typora\typora-user-images\image-20210911154847784.png">
+<meta property="og:image" content="c:\Users\%E6%A2%A6%E4%B8%ADDarling\AppData\Roaming\Typora\typora-user-images\image-20210911161447694.png">
+<meta property="og:image" content="c:\Users\%E6%A2%A6%E4%B8%ADDarling\AppData\Roaming\Typora\typora-user-images\image-20210911162220552.png">
+<meta property="og:image" content="c:\Users\%E6%A2%A6%E4%B8%ADDarling\AppData\Roaming\Typora\typora-user-images\image-20210911164053452.png">
+<meta property="og:image" content="c:\Users\%E6%A2%A6%E4%B8%ADDarling\AppData\Roaming\Typora\typora-user-images\image-20210911164528267.png">
+<meta property="og:image" content="c:\Users\%E6%A2%A6%E4%B8%ADDarling\AppData\Roaming\Typora\typora-user-images\image-20210911164938185.png">
+<meta property="og:image" content="c:\Users\%E6%A2%A6%E4%B8%ADDarling\AppData\Roaming\Typora\typora-user-images\image-20210911173338813.png">
+<meta property="og:image" content="c:\Users\%E6%A2%A6%E4%B8%ADDarling\AppData\Roaming\Typora\typora-user-images\image-20210911174445495.png">
+<meta property="og:image" content="c:\Users\%E6%A2%A6%E4%B8%ADDarling\AppData\Roaming\Typora\typora-user-images\image-20210911174956908.png">
+<meta property="og:image" content="c:\Users\%E6%A2%A6%E4%B8%ADDarling\AppData\Roaming\Typora\typora-user-images\image-20210911175556493.png">
+<meta property="og:image" content="c:\Users\%E6%A2%A6%E4%B8%ADDarling\AppData\Roaming\Typora\typora-user-images\image-20210911180414507.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200331221423732.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MzkxNDYwNA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="article:published_time" content="2023-09-18T20:24:17.535Z">
+<meta property="article:modified_time" content="2022-03-25T07:54:05.000Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="c:\Users\%E6%A2%A6%E4%B8%ADDarling\AppData\Roaming\Typora\typora-user-images\image-20210710162928564.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="Search"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-mysql" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/09/19/mysql/" class="article-date">
+  <time class="dt-published" datetime="2023-09-18T20:24:17.535Z" itemprop="datePublished">2023-09-19</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="MySQL-最流行数据库管理系统之一-开源项目"><a href="#MySQL-最流行数据库管理系统之一-开源项目" class="headerlink" title="&#x2F;MySQL(最流行数据库管理系统之一,开源项目)"></a>&#x2F;MySQL(最流行数据库管理系统之一,开源项目)</h1><h2 id="web网站流程"><a href="#web网站流程" class="headerlink" title="web网站流程"></a>web网站流程</h2><p>web页面-&gt;服务器-&gt;数据库</p>
+<p><img src="C:\Users\梦中Darling\AppData\Roaming\Typora\typora-user-images\image-20210710162928564.png" alt="image-20210710162928564"></p>
+<p><strong>数组集合存储在内存，信息易丢失。</strong></p>
+<p><strong>文件可以永久存储，但不易查询。</strong></p>
+<p><strong>而MySQL既可以像文件一样永久存储，又有一套自己的查询管理系统。</strong></p>
+<h2 id="数据库的概念"><a href="#数据库的概念" class="headerlink" title="数据库的概念"></a>数据库的概念</h2><p><img src="C:\Users\梦中Darling\AppData\Roaming\Typora\typora-user-images\image-20210710164042953.png" alt="image-20210710164042953"></p>
+<p><img src="C:\Users\梦中Darling\AppData\Roaming\Typora\typora-user-images\image-20210710164405353.png" alt="image-20210710164405353">常见的数据库管理系统：MySql(现属于Oracle，开源免费）、Oracle(甲骨文公司，很贵）、DB2（IBM，适合处理海量数据）、SqlServer（微软，只能安装在windows）</p>
+<h2 id="MySQL的启动与停止"><a href="#MySQL的启动与停止" class="headerlink" title="MySQL的启动与停止"></a>MySQL的启动与停止</h2><p><img src="C:\Users\梦中Darling\AppData\Roaming\Typora\typora-user-images\image-20210711182652794.png" alt="image-20210711182652794"></p>
+<h2 id="MySQL的常用命令"><a href="#MySQL的常用命令" class="headerlink" title="MySQL的常用命令"></a>MySQL的常用命令</h2><p><strong>1.查看当前所有的数据库</strong></p>
+<p>show databases;</p>
+<p><strong>2.打开指定的库</strong></p>
+<p>use 库名;</p>
+<p><strong>3.查看当前库的所有表</strong></p>
+<p>show tables;</p>
+<p><strong>4.查看其它库的所有表</strong></p>
+<p>show tables from 库名;</p>
+<p><strong>5.创建表</strong></p>
+<p>create 表名(</p>
+<p>​	列名 列类型,</p>
+<p>….</p>
+<p>);</p>
+<p><strong>6.查看表结构</strong></p>
+<p>desc 表名;</p>
+<p><strong>7.查看服务器版本</strong></p>
+<p>​		方法一:登录到MySQL客户端</p>
+<p>​		select version();</p>
+<p>​		方法二:在cmd中</p>
+<p>​		mysql –version或mysql –V</p>
+<h2 id="查询表中字段"><a href="#查询表中字段" class="headerlink" title="查询表中字段"></a>查询表中字段</h2><p>select 可以查询 字段 常量值 表达式 函数</p>
+<p>1、查询单个字段</p>
+<p>select  查询内容  from  表</p>
+<p>2、查询多个字段</p>
+<p>通过逗号隔开，或用*表示整体（无法改变顺序）</p>
+<p>代码：</p>
+<pre><code>USE employees;
+</code></pre>
+<p>SELECT last_name FROM employees;</p>
+<p>SELECT last_name,salary,email FROM employees;</p>
+<p>SELECT<br>  <code>last_name</code>,<br>  <code>email</code>,<br>  <code>phone_number</code><br>FROM<br>  employees ;</p>
+<p>SELECT * FROM employees;</p>
+<p><img src="C:\Users\梦中Darling\AppData\Roaming\Typora\typora-user-images\image-20210801124526971.png" alt="image-20210801124526971"></p>
+<h2 id="去重"><a href="#去重" class="headerlink" title="去重"></a>去重</h2><p>distinct关键字：</p>
+<p><img src="C:\Users\梦中Darling\AppData\Roaming\Typora\typora-user-images\image-20210801125039132.png" alt="image-20210801125039132"></p>
+<h2 id="作用"><a href="#作用" class="headerlink" title="+作用"></a>+作用</h2><p><img src="C:\Users\梦中Darling\AppData\Roaming\Typora\typora-user-images\image-20210801125648814.png" alt="image-20210801125648814"></p>
+<p>字符连接用concat</p>
+<p><img src="C:\Users\梦中Darling\AppData\Roaming\Typora\typora-user-images\image-20210801125812845.png" alt="image-20210801125812845"></p>
+<p>NULL和任何字段拼接都是NULL，可以通过ifnull来解决</p>
+<p><img src="C:\Users\梦中Darling\AppData\Roaming\Typora\typora-user-images\image-20210819172415244.png" alt="image-20210819172415244"></p>
+<h2 id="条件查询："><a href="#条件查询：" class="headerlink" title="条件查询："></a>条件查询：</h2><p><img src="C:\Users\梦中Darling\AppData\Roaming\Typora\typora-user-images\image-20210821171823517.png" alt="image-20210821171823517"></p>
+<p><img src="C:\Users\梦中Darling\AppData\Roaming\Typora\typora-user-images\image-20210821172239136.png" alt="image-20210821172239136"></p>
+<h2 id="like"><a href="#like" class="headerlink" title="like:"></a>like:</h2><p><img src="C:\Users\梦中Darling\AppData\Roaming\Typora\typora-user-images\image-20210821173924746.png" alt="image-20210821173924746"></p>
+<p>%为通配符，为任意多个字符</p>
+<p>—代表任意一个字符</p>
+<h2 id="between-and"><a href="#between-and" class="headerlink" title="between and"></a>between and</h2><p><img src="C:\Users\梦中Darling\AppData\Roaming\Typora\typora-user-images\image-20210821174516638.png" alt="image-20210821174516638"></p>
+<p>在两者之间，包含临界值。</p>
+<h2 id="in"><a href="#in" class="headerlink" title="in"></a>in</h2><p><img src="C:\Users\梦中Darling\AppData\Roaming\Typora\typora-user-images\image-20210821175237090.png" alt="image-20210821175237090"></p>
+<p><img src="C:\Users\梦中Darling\AppData\Roaming\Typora\typora-user-images\image-20210821175109007.png" alt="image-20210821175109007"></p>
+<h2 id="is-null"><a href="#is-null" class="headerlink" title="is null"></a>is null</h2><p><img src="C:\Users\梦中Darling\AppData\Roaming\Typora\typora-user-images\image-20210821175335283.png" alt="image-20210821175335283"></p>
+<p>因为&#x3D;不能判断null值，所以用is null来判断</p>
+<p><img src="C:\Users\梦中Darling\AppData\Roaming\Typora\typora-user-images\image-20210821175651915.png" alt="image-20210821175651915"></p>
+<p><img src="C:\Users\梦中Darling\AppData\Roaming\Typora\typora-user-images\image-20210905190610808.png" alt="image-20210905190610808"></p>
+<h2 id="排序查询"><a href="#排序查询" class="headerlink" title="排序查询"></a>排序查询</h2><p><img src="C:\Users\梦中Darling\AppData\Roaming\Typora\typora-user-images\image-20210908082602374.png" alt="image-20210908082602374"></p>
+<p>若不标注,则默认为升序</p>
+<p>oredr by 子句可以支持单个字段,多个字段,表达式,函数,别名</p>
+<p><img src="C:\Users\梦中Darling\AppData\Roaming\Typora\typora-user-images\image-20210908083342674.png" alt="image-20210908083342674"></p>
+<p>​                     </p>
+<h2 id="常见函数"><a href="#常见函数" class="headerlink" title="常见函数"></a>常见函数</h2><p><img src="C:\Users\梦中Darling\AppData\Roaming\Typora\typora-user-images\image-20210908085000879.png" alt="image-20210908085000879">          </p>
+<h3 id="字符函数"><a href="#字符函数" class="headerlink" title="字符函数"></a>字符函数</h3><p><img src="C:\Users\梦中Darling\AppData\Roaming\Typora\typora-user-images\image-20210908234230423.png" alt="image-20210908234230423"></p>
+<p>在utf8中，一个汉字占三个字节。</p>
+<p><img src="C:\Users\梦中Darling\AppData\Roaming\Typora\typora-user-images\image-20210908234455630.png" alt="image-20210908234455630"></p>
+<p>concat可以拼接字符串，传入字符串，逗号隔开</p>
+<p><img src="C:\Users\梦中Darling\AppData\Roaming\Typora\typora-user-images\image-20210908234509992.png" alt="image-20210908234509992"></p>
+<p><img src="C:\Users\梦中Darling\AppData\Roaming\Typora\typora-user-images\image-20210908235059116.png" alt="image-20210908235059116"></p>
+<p>substr可以截取字符，两个参数时，第二个参数代表截取的字符长度。</p>
+<p><img src="C:\Users\梦中Darling\AppData\Roaming\Typora\typora-user-images\image-20210908235453873.png" alt="image-20210908235453873"></p>
+<p><img src="C:\Users\梦中Darling\AppData\Roaming\Typora\typora-user-images\image-20210908235726752.png" alt="image-20210908235726752"></p>
+<p>去掉前后指定字符，默认空格</p>
+<p><img src="C:\Users\梦中Darling\AppData\Roaming\Typora\typora-user-images\image-20210908235903695.png" alt="image-20210908235903695"></p>
+<p><img src="C:\Users\梦中Darling\AppData\Roaming\Typora\typora-user-images\image-20210909000041872.png" alt="image-20210909000041872"></p>
+<h3 id="数学函数"><a href="#数学函数" class="headerlink" title="数学函数"></a>数学函数</h3><p>round四舍五入函数，两个参数时，表示保留到第几位小数。</p>
+<p><img src="C:\Users\梦中Darling\AppData\Roaming\Typora\typora-user-images\image-20210909225228331.png" alt="image-20210909225228331"></p>
+<p>ceil向上取整</p>
+<p><img src="C:\Users\梦中Darling\AppData\Roaming\Typora\typora-user-images\image-20210909230002839.png" alt="image-20210909230002839"></p>
+<p>结果为2</p>
+<p>floor向下取整</p>
+<p><img src="C:\Users\梦中Darling\AppData\Roaming\Typora\typora-user-images\image-20210909230058141.png" alt="image-20210909230058141"></p>
+<p>结果为-10</p>
+<p>turncate截断至第几位小数</p>
+<p><img src="C:\Users\梦中Darling\AppData\Roaming\Typora\typora-user-images\image-20210909230159971.png" alt="image-20210909230159971"></p>
+<p>mod取余</p>
+<h3 id="日期函数"><a href="#日期函数" class="headerlink" title="日期函数"></a>日期函数</h3><p><img src="C:\Users\梦中Darling\AppData\Roaming\Typora\typora-user-images\image-20210909230726812.png" alt="image-20210909230726812"></p>
+<p><img src="C:\Users\梦中Darling\AppData\Roaming\Typora\typora-user-images\image-20210909231223360.png" alt="image-20210909231223360"></p>
+<p>str_to_date:将日期格式的字符转换成指定格式的日期</p>
+<p><img src="C:\Users\梦中Darling\AppData\Roaming\Typora\typora-user-images\image-20210909231434274.png" alt="image-20210909231434274"></p>
+<p>SELECT STR_TO_DATE(‘9-13-1999’,’%m-%d-%Y’)</p>
+<p>date_format将日期转成字符</p>
+<p><img src="C:\Users\梦中Darling\AppData\Roaming\Typora\typora-user-images\image-20210909232906604.png" alt="image-20210909232906604"></p>
+<h3 id="其他函数"><a href="#其他函数" class="headerlink" title="其他函数"></a>其他函数</h3><p><img src="C:\Users\梦中Darling\AppData\Roaming\Typora\typora-user-images\image-20210909233642645.png" alt="image-20210909233642645"></p>
+<h3 id="流程控制函数"><a href="#流程控制函数" class="headerlink" title="流程控制函数"></a>流程控制函数</h3><p>if函数</p>
+<p><img src="C:\Users\梦中Darling\AppData\Roaming\Typora\typora-user-images\image-20210909233836707.png" alt="image-20210909233836707"></p>
+<p>若第一个参数为真，则输出大，否则输出小</p>
+<p>case函数，与switch类似</p>
+<p><img src="C:\Users\梦中Darling\AppData\Roaming\Typora\typora-user-images\image-20210909234439372.png" alt="image-20210909234439372"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">SELECT salary,department_id,</span><br><span class="line">CASE department_id</span><br><span class="line">WHEN 30 THEN salary*1.1    //未结束不能用分号</span><br><span class="line">WHEN 40 THEN salary*1.2</span><br><span class="line">ELSE salary</span><br><span class="line">END AS 新工资</span><br><span class="line">FROM employees;            //适合等值判断</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="C:\Users\梦中Darling\AppData\Roaming\Typora\typora-user-images\image-20210910000014579.png" alt="image-20210910000014579"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">SELECT salary,         //select和case间要打,  </span><br><span class="line">CASE</span><br><span class="line">WHEN salary&gt;20000 THEN &#x27;A&#x27;</span><br><span class="line">WHEN salary&gt;10000 THEN &#x27;B&#x27;</span><br><span class="line">ELSE &#x27;c&#x27;</span><br><span class="line">END AS 工资级别</span><br><span class="line">FROM employees;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="分组函数"><a href="#分组函数" class="headerlink" title="分组函数"></a>分组函数</h2><p><strong>给一组数据，得到一个值</strong></p>
+<p>SUM求和  </p>
+<p>AVG()求平均 </p>
+<p>只适合数值类型</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT COUNT(salary) FROM employees;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>MAX()求最大 MIN()求最小 COUNT()统计个数 **所有数据类型都可以</p>
+<p><strong>以上分组函数都忽略null值</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SELECT COUNT(*) FROM employees;    //在MYISAM引擎下效率高</span><br><span class="line">SELECT COUNT(1) FROM employees;</span><br></pre></td></tr></table></figure>
+
+<p><strong>都可以统计表中有多少行数据</strong></p>
+<p><img src="C:\Users\梦中Darling\AppData\Roaming\Typora\typora-user-images\image-20210910084752556.png" alt="image-20210910084752556"></p>
+<p><img src="C:\Users\梦中Darling\AppData\Roaming\Typora\typora-user-images\image-20210910085121787.png" alt="image-20210910085121787"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT DATEDIFF(&#x27;2017-10-1&#x27;,&#x27;2017-9-29&#x27;);  //结果为相差2天</span><br></pre></td></tr></table></figure>
+
+<h3 id="分组查询"><a href="#分组查询" class="headerlink" title="分组查询"></a>分组查询</h3><p><img src="C:\Users\梦中Darling\AppData\Roaming\Typora\typora-user-images\image-20210910090420906.png" alt="image-20210910090420906"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">SELECT COUNT(*),location_id</span><br><span class="line">FROM departments</span><br><span class="line">GROUP BY location_id;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">//查询每个领导手下有奖金的员工最高工资</span><br><span class="line">SELECT MAX(salary),manager_id</span><br><span class="line">FROM employees</span><br><span class="line">WHERE commission_pct IS NOT NULL</span><br><span class="line">GROUP BY manager_id</span><br></pre></td></tr></table></figure>
+
+<p><strong>添加分组后的筛选条件</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">SELECT COUNT(*),department_id</span><br><span class="line">FROM employees</span><br><span class="line">GROUP BY department_id    //通过having进行分组后筛选</span><br><span class="line">HAVING COUNT(*)&gt;2;</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="C:\Users\梦中Darling\AppData\Roaming\Typora\typora-user-images\image-20210910092156311.png" alt="image-20210910092156311"></p>
+<p>按函数分组查询</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">USE myemployees;</span><br><span class="line">SELECT COUNT(*),LENGTH(last_name) AS len_name</span><br><span class="line">FROM employees</span><br><span class="line">GROUP BY LENGTH(last_name)</span><br><span class="line">ORDER BY COUNT(*);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><img src="C:\Users\梦中Darling\AppData\Roaming\Typora\typora-user-images\image-20210910132056627.png" alt="image-20210910132056627"></p>
+<h3 id="连接查询"><a href="#连接查询" class="headerlink" title="连接查询"></a>连接查询</h3><p>笛卡尔乘积现象:表一m行,表二n行.结果却又m*n行</p>
+<p>可以添加限制条件使其一一对应</p>
+<p><img src="C:\Users\梦中Darling\AppData\Roaming\Typora\typora-user-images\image-20210910132651057.png" alt="image-20210910132651057"></p>
+<p><img src="C:\Users\梦中Darling\AppData\Roaming\Typora\typora-user-images\image-20210910133104858.png" alt="image-20210910133104858"></p>
+<p><strong>等值连接查询</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">SELECT last_name,department_name</span><br><span class="line">FROM employees,departments</span><br><span class="line">WHERE employees.`department_id`=departments.`department_id`;</span><br></pre></td></tr></table></figure>
+
+<p>如果为表起了别名,则查询的字段就不能使用原来的表名去限定</p>
+<p><strong>多表等值连接:</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">SELECT department_name,d.manager_id,MIN(salary)</span><br><span class="line">FROM departments AS d,employees AS e</span><br><span class="line">WHERE d.`department_id`=e.`department_id`</span><br><span class="line">AND commission_pct IS NOT NULL</span><br><span class="line">GROUP BY department_name,d.manager_id;</span><br></pre></td></tr></table></figure>
+
+<p><img src="C:\Users\梦中Darling\AppData\Roaming\Typora\typora-user-images\image-20210910192527468.png" alt="image-20210910192527468"></p>
+<p><strong>非等值连接:</strong></p>
+<p><img src="C:\Users\梦中Darling\AppData\Roaming\Typora\typora-user-images\image-20210910193517380.png" alt="image-20210910193517380"></p>
+<p><strong>自连接</strong></p>
+<p>连接的表就是自己</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">SELECT e.employee_id,e.last_name,m.employee_id,m.last_name</span><br><span class="line">FROM employees e,employees m</span><br><span class="line">WHERE e.`manager_id`=m.`employee_id`;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="sql99语法"><a href="#sql99语法" class="headerlink" title="sql99语法"></a>sql99语法</h2><p><img src="C:\Users\梦中Darling\AppData\Roaming\Typora\typora-user-images\image-20210910205912645.png" alt="image-20210910205912645"></p>
+<h3 id="等值连接-内连接"><a href="#等值连接-内连接" class="headerlink" title="等值连接   (内连接)"></a><strong>等值连接</strong>   (内连接)</h3><p>查询员工名,部门名(添加筛选)</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">SELECT last_name,department_name</span><br><span class="line">FROM employees e</span><br><span class="line">INNER JOIN departments d</span><br><span class="line">WHERE e.`department_id`=d.`department_id`;</span><br></pre></td></tr></table></figure>
+
+<p><img src="C:\Users\梦中Darling\AppData\Roaming\Typora\typora-user-images\image-20210910212225712.png" alt="image-20210910212225712"></p>
+<p><strong>非等值连接</strong></p>
+<p>查询工资级别的个数&gt;20的个数,并按工资级别降序</p>
+<p><img src="C:\Users\梦中Darling\AppData\Roaming\Typora\typora-user-images\image-20210910213205930.png" alt="image-20210910213205930"></p>
+<p><strong>自连接</strong></p>
+<p>查询员工名字和领导名字</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">SELECT e.last_name,m.last_name</span><br><span class="line">FROM employees e</span><br><span class="line">JOIN employees m</span><br><span class="line">ON e.`manager_id`=m.`employee_id`;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="外连接"><a href="#外连接" class="headerlink" title="外连接"></a><strong>外连接</strong></h3><p> <img src="C:\Users\梦中Darling\AppData\Roaming\Typora\typora-user-images\image-20210910215135079.png" alt="image-20210910215135079"></p>
+<p>左外连接:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">SELECT d.*,e.employee_id</span><br><span class="line">FROM departments d          left outer左边的为主表</span><br><span class="line">LEFT OUTER JOIN employees e</span><br><span class="line">ON d.`department_id`=e.`department_id`</span><br><span class="line">WHERE e.`employee_id` IS NULL;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">SELECT city,departments.*    //查询哪个城市没有部门</span><br><span class="line">FROM locations</span><br><span class="line">LEFT OUTER JOIN departments</span><br><span class="line">ON departments.`location_id`=locations.`location_id`</span><br><span class="line">WHERE department_id IS NULL;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<p>全外连接&#x3D;内连接结果+两个表的私有集</p>
+<p><strong>总结:</strong></p>
+<p><img src="C:\Users\梦中Darling\AppData\Roaming\Typora\typora-user-images\image-20210911121915433.png" alt="image-20210911121915433"></p>
+<p><img src="C:\Users\梦中Darling\AppData\Roaming\Typora\typora-user-images\image-20210911121843154.png" alt="image-20210911121843154"></p>
+<h3 id="子查询"><a href="#子查询" class="headerlink" title="子查询"></a>子查询</h3><p><img src="C:\Users\梦中Darling\AppData\Roaming\Typora\typora-user-images\image-20210911123130606.png" alt="image-20210911123130606"></p>
+<p><img src="C:\Users\梦中Darling\AppData\Roaming\Typora\typora-user-images\image-20210911123421454.png" alt="image-20210911123421454"></p>
+<h4 id="where后面标量子查询"><a href="#where后面标量子查询" class="headerlink" title="where后面标量子查询"></a>where后面标量子查询</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">SELECT *</span><br><span class="line">FROM employees</span><br><span class="line">WHERE salary&gt;(</span><br><span class="line">	SELECT salary      //标量子查询,只有一行一列结果</span><br><span class="line">	FROM employees</span><br><span class="line">	WHERE last_name = &#x27;Able&#x27;</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+<h4 id="where后面列子查询-in"><a href="#where后面列子查询-in" class="headerlink" title="where后面列子查询(in)"></a>where后面列子查询(in)</h4><p>要搭配多行比较操作符</p>
+<p><img src="C:\Users\梦中Darling\AppData\Roaming\Typora\typora-user-images\image-20210911133033134.png" alt="image-20210911133033134"></p>
+<p>any,some是大于一个就行,可用min替换</p>
+<p>all和所有值进行比较,可用max替换</p>
+<p>查询location_id是1400或1700的部门编号</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">SELECT last_name</span><br><span class="line">FROM employees</span><br><span class="line">WHERE employees.`department_id`IN(</span><br><span class="line">	SELECT department_id</span><br><span class="line">	FROM departments</span><br><span class="line">	WHERE departments.`location_id` IN(1400,1700)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="where后面的行子查询"><a href="#where后面的行子查询" class="headerlink" title="where后面的行子查询(&#x3D;)"></a>where后面的行子查询(&#x3D;)</h4><p>查询编号最小,工资最高的员工信息</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">SELECT *</span><br><span class="line">FROM employees</span><br><span class="line">WHERE (employee_id,salary)=(</span><br><span class="line">	SELECT MIN(employee_id),MAX(salary)</span><br><span class="line">	FROM employees</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="select后子查询"><a href="#select后子查询" class="headerlink" title="select后子查询"></a>select后子查询</h4><p>查询每个部门员工个数</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">SELECT d.*,(</span><br><span class="line">	</span><br><span class="line">	SELECT COUNT(*)</span><br><span class="line">	FROM employees e</span><br><span class="line">	WHERE e.department_id = d.`department_id`</span><br><span class="line">)个数</span><br><span class="line">FROM departments d;</span><br></pre></td></tr></table></figure>
+
+<p>仅仅支持标量子查询</p>
+<h4 id="from后面子查询"><a href="#from后面子查询" class="headerlink" title="from后面子查询"></a>from后面子查询</h4><p>查询每个部门的平均工资的工资等级</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">SELECT ag_dep.*,g.`grade_level`</span><br><span class="line">FROM(</span><br><span class="line">	SELECT AVG(salary) ag,department_id</span><br><span class="line">	FROM employees</span><br><span class="line">	GROUP BY department_id</span><br><span class="line">) ag_dep</span><br><span class="line">INNER JOIN job_grades g</span><br><span class="line">ON ag_dep.ag BETWEEN lowest_sal AND highest_sal;</span><br></pre></td></tr></table></figure>
+
+<p>把查询的结果集当成一张表,且必须起别名</p>
+<h4 id="exists子查询-相关子查询"><a href="#exists子查询-相关子查询" class="headerlink" title="exists子查询(相关子查询)"></a>exists子查询(相关子查询)</h4><p><img src="C:\Users\梦中Darling\AppData\Roaming\Typora\typora-user-images\image-20210911150926366.png" alt="image-20210911150926366"></p>
+<p>查询有员工的部门名</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">SELECT department_name</span><br><span class="line">FROM departments d</span><br><span class="line">WHERE EXISTS(</span><br><span class="line">	SELECT *</span><br><span class="line">	FROM employees e</span><br><span class="line">	WHERE d.`department_id`=e.`department_id`</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+<p>子查询涉及到了主查询的字段,相当于遍历</p>
+<h3 id="分页查询"><a href="#分页查询" class="headerlink" title="分页查询"></a>分页查询</h3><p><img src="C:\Users\梦中Darling\AppData\Roaming\Typora\typora-user-images\image-20210911154136826.png" alt="image-20210911154136826"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SELECT * FROM employees LIMIT 5;</span><br><span class="line">SELECT * FROM employees LIMIT 10,15;   //索引为10  </span><br></pre></td></tr></table></figure>
+
+<p>limit放在查询语句最后</p>
+<p><img src="C:\Users\梦中Darling\AppData\Roaming\Typora\typora-user-images\image-20210911154847784.png" alt="image-20210911154847784"></p>
+<h3 id="联合查询-union"><a href="#联合查询-union" class="headerlink" title="联合查询(union)"></a>联合查询(union)</h3><p>将多条查询语句的结果合并成一个结果,适合查询的表有多个,且多个表没有直接关系</p>
+<p><strong>查询语句1</strong></p>
+<p><strong>union</strong></p>
+<p><strong>查询语句2</strong></p>
+<p><strong>union</strong></p>
+<p><strong>…….</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">SELECT * FROM employees WHERE email LIKE &#x27;%a%&#x27;</span><br><span class="line">UNION * FROM employees WHERE department_id&gt;90;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><img src="C:\Users\梦中Darling\AppData\Roaming\Typora\typora-user-images\image-20210911161447694.png" alt="image-20210911161447694"></p>
+<h2 id="DML语言"><a href="#DML语言" class="headerlink" title="DML语言"></a>DML语言</h2><h3 id="插入语句-1"><a href="#插入语句-1" class="headerlink" title="插入语句(1)"></a>插入语句(1)</h3><p><img src="C:\Users\梦中Darling\AppData\Roaming\Typora\typora-user-images\image-20210911162220552.png" alt="image-20210911162220552"></p>
+<p><img src="C:\Users\梦中Darling\AppData\Roaming\Typora\typora-user-images\image-20210911164053452.png" alt="image-20210911164053452"></p>
+<p>列数和值的个数必须一致</p>
+<p>可以省略列名,默认所有列,且与表中顺序一致</p>
+<h3 id="插入语句-2"><a href="#插入语句-2" class="headerlink" title="插入语句(2)"></a>插入语句(2)</h3><p><img src="C:\Users\梦中Darling\AppData\Roaming\Typora\typora-user-images\image-20210911164528267.png" alt="image-20210911164528267"></p>
+<p><img src="C:\Users\梦中Darling\AppData\Roaming\Typora\typora-user-images\image-20210911164938185.png" alt="image-20210911164938185"></p>
+<h3 id="修改语句"><a href="#修改语句" class="headerlink" title="修改语句"></a>修改语句</h3><p><img src="C:\Users\梦中Darling\AppData\Roaming\Typora\typora-user-images\image-20210911173338813.png" alt="image-20210911173338813"></p>
+<p>修改多表记录</p>
+<p><img src="C:\Users\梦中Darling\AppData\Roaming\Typora\typora-user-images\image-20210911174445495.png" alt="image-20210911174445495"></p>
+<h3 id="删除语句"><a href="#删除语句" class="headerlink" title="删除语句"></a>删除语句</h3><p><img src="C:\Users\梦中Darling\AppData\Roaming\Typora\typora-user-images\image-20210911174956908.png" alt="image-20210911174956908"></p>
+<p>多表删除</p>
+<p><img src="C:\Users\梦中Darling\AppData\Roaming\Typora\typora-user-images\image-20210911175556493.png" alt="image-20210911175556493"></p>
+<p><strong>delete与truncate的区别</strong></p>
+<p><img src="C:\Users\梦中Darling\AppData\Roaming\Typora\typora-user-images\image-20210911180414507.png" alt="image-20210911180414507"></p>
+<h1 id="数据库系统概论"><a href="#数据库系统概论" class="headerlink" title="数据库系统概论"></a>数据库系统概论</h1><h2 id="思维导图"><a href="#思维导图" class="headerlink" title="思维导图"></a>思维导图</h2><p><img src="https://img-blog.csdnimg.cn/20200331221423732.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MzkxNDYwNA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<h2 id="SQL概述"><a href="#SQL概述" class="headerlink" title="SQL概述"></a>SQL概述</h2><p>SQL（Structured Query Language) 结构化查询语言</p>
+<h2 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h2><p>① 综合统一</p>
+<p>集数据定义语言 DDL(Data Definition Language)，数据操纵语言 DML（Data Manipulation Language），数据控制语言 DCL(Data Control Language) 功能于一体。<br>可以独立完成数据库生命周期中的全部活动：<br>定义关系模式，插入数据，建立数据库；<br>对数据库中的数据进行查询和更新；<br>数据库重构和维护<br>数据库安全性、完整性控制等<br>用户数据库投入运行后，可根据需要随时逐步修改模式，不影响数据的运行。<br>数据操作符统一<br>② 高度非过程化</p>
+<p>非关系数据模型的数据操纵语言“面向过程”，必须制定存取路径<br>SQL只要提出“做什么”，无须了解存取路径。<br>存取路径的选择以及SQL的操作过程由系统自动完成。<br>③ 面向集合的操作方式</p>
+<p>非关系数据模型采用面向记录的操作方式，操作对象是一条记录<br>SQL采用集合操作方式：<br>操作对象、查找结果可以是元组的集合<br>一次插入、删除、更新操作的对象可以是元组的集合<br>④ 以同一种语法结构提供多种使用方式</p>
+<p>SQL是独立的语言<br>能够独立地用于联机交互的使用方式<br>SQL又是嵌入式语言<br>SQL能够嵌入到高级语言（例如C，C++，Java）程序中，供程序员设计程序时使用<br>⑤ 语言简洁，易学易用</p>
+<p>SQL功能极强，完成核心功能只用了9个动词。<br>SQL功能	动词<br>数据查询	SELECT<br>数据定义	CREATE、DROP、ALTER<br>数据操纵	INSERT、UPDATE、DELETE<br>数据控制	GRANT、REVOKE</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/09/19/mysql/" data-id="clmpc708s00056oksfx7weudk" data-title="" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2023/09/19/SSM/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          (no title)
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2023/09/19/Redis/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title"></div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/09/">September 2023</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2023/09/19/html/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2023/09/19/java%E7%AC%94%E8%AE%B0/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2023/09/19/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2023/09/19/SSM/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2023/09/19/mysql/">(no title)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2023 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

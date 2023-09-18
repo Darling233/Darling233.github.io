@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="Redis数据类型 字符串操作命令 哈希操作命令 列表操作命令 集合操作命令 有序集合操作命令 Nosql发展优化数据结构何索引–&gt;文件缓存–&gt;Memcached 单机Mysql  数据量无法承载太大  数据达到300万就一定要建立索引了（B+树）  读写混合，服务器承受不了   Memcached缓存 + MySQL +垂直拆分(读写分离)  主从复制，读写分离 分库分表+水平拆分+">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://example.com/2023/09/19/Redis/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Redis数据类型 字符串操作命令 哈希操作命令 列表操作命令 集合操作命令 有序集合操作命令 Nosql发展优化数据结构何索引–&gt;文件缓存–&gt;Memcached 单机Mysql  数据量无法承载太大  数据达到300万就一定要建立索引了（B+树）  读写混合，服务器承受不了   Memcached缓存 + MySQL +垂直拆分(读写分离)  主从复制，读写分离 分库分表+水平拆分+">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="c:\Users\14115\AppData\Roaming\Typora\typora-user-images\image-20230815182600143.png">
+<meta property="og:image" content="c:\Users\14115\AppData\Roaming\Typora\typora-user-images\image-20230815183103845.png">
+<meta property="og:image" content="c:\Users\14115\AppData\Roaming\Typora\typora-user-images\image-20230815183450842.png">
+<meta property="og:image" content="c:\Users\14115\AppData\Roaming\Typora\typora-user-images\image-20230815184142915.png">
+<meta property="og:image" content="c:\Users\14115\AppData\Roaming\Typora\typora-user-images\image-20230815184755410.png">
+<meta property="og:image" content="c:\Users\14115\AppData\Roaming\Typora\typora-user-images\image-20230815185234809.png">
+<meta property="og:image" content="c:\Users\14115\AppData\Roaming\Typora\typora-user-images\image-20230904102606813.png">
+<meta property="og:image" content="c:\Users\14115\AppData\Roaming\Typora\typora-user-images\image-20230904103420270.png">
+<meta property="og:image" content="c:\Users\14115\AppData\Roaming\Typora\typora-user-images\image-20230904105105447.png">
+<meta property="og:image" content="c:\Users\14115\AppData\Roaming\Typora\typora-user-images\image-20230904110034322.png">
+<meta property="og:image" content="c:\Users\14115\AppData\Roaming\Typora\typora-user-images\image-20230904110803605.png">
+<meta property="og:image" content="c:\Users\14115\AppData\Roaming\Typora\typora-user-images\image-20230904141930979.png">
+<meta property="og:image" content="c:\Users\14115\AppData\Roaming\Typora\typora-user-images\image-20230904145549007.png">
+<meta property="og:image" content="c:\Users\14115\AppData\Roaming\Typora\typora-user-images\image-20230904162451094.png">
+<meta property="og:image" content="c:\Users\14115\AppData\Roaming\Typora\typora-user-images\image-20230904162604717.png">
+<meta property="og:image" content="c:\Users\14115\AppData\Roaming\Typora\typora-user-images\image-20230904163324921.png">
+<meta property="article:published_time" content="2023-09-18T20:23:21.706Z">
+<meta property="article:modified_time" content="2023-09-05T00:09:13.843Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="c:\Users\14115\AppData\Roaming\Typora\typora-user-images\image-20230815182600143.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="Search"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-Redis" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/09/19/Redis/" class="article-date">
+  <time class="dt-published" datetime="2023-09-18T20:23:21.706Z" itemprop="datePublished">2023-09-19</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="Redis数据类型"><a href="#Redis数据类型" class="headerlink" title="Redis数据类型"></a>Redis数据类型</h1><p><img src="C:\Users\14115\AppData\Roaming\Typora\typora-user-images\image-20230815182600143.png" alt="image-20230815182600143"></p>
+<h3 id="字符串操作命令"><a href="#字符串操作命令" class="headerlink" title="字符串操作命令"></a>字符串操作命令</h3><p><img src="C:\Users\14115\AppData\Roaming\Typora\typora-user-images\image-20230815183103845.png" alt="image-20230815183103845"></p>
+<h3 id="哈希操作命令"><a href="#哈希操作命令" class="headerlink" title="哈希操作命令"></a>哈希操作命令</h3><p><img src="C:\Users\14115\AppData\Roaming\Typora\typora-user-images\image-20230815183450842.png" alt="image-20230815183450842"></p>
+<h3 id="列表操作命令"><a href="#列表操作命令" class="headerlink" title="列表操作命令"></a>列表操作命令</h3><p><img src="C:\Users\14115\AppData\Roaming\Typora\typora-user-images\image-20230815184142915.png" alt="image-20230815184142915"></p>
+<h3 id="集合操作命令"><a href="#集合操作命令" class="headerlink" title="集合操作命令"></a>集合操作命令</h3><p><img src="C:\Users\14115\AppData\Roaming\Typora\typora-user-images\image-20230815184755410.png" alt="image-20230815184755410"></p>
+<h3 id="有序集合操作命令"><a href="#有序集合操作命令" class="headerlink" title="有序集合操作命令"></a>有序集合操作命令</h3><p><img src="C:\Users\14115\AppData\Roaming\Typora\typora-user-images\image-20230815185234809.png" alt="image-20230815185234809"></p>
+<h1 id="Nosql"><a href="#Nosql" class="headerlink" title="Nosql"></a>Nosql</h1><h2 id="发展"><a href="#发展" class="headerlink" title="发展"></a>发展</h2><p>优化数据结构何索引–&gt;文件缓存–&gt;Memcached</p>
+<p><strong>单机Mysql</strong></p>
+<ul>
+<li><p>数据量无法承载太大</p>
+</li>
+<li><p>数据达到300万就一定要建立索引了（B+树）</p>
+</li>
+<li><p>读写混合，服务器承受不了</p>
+</li>
+</ul>
+<p><strong>Memcached缓存 + MySQL +垂直拆分</strong>(读写分离)</p>
+<p><img src="C:\Users\14115\AppData\Roaming\Typora\typora-user-images\image-20230904102606813.png" alt="image-20230904102606813"></p>
+<p>主从复制，读写分离</p>
+<p><strong>分库分表+水平拆分+MySQL集群</strong></p>
+<p>早年MyISAM引擎：表锁，十分影响效率，高并发问题严重</p>
+<p>Innodb：行锁</p>
+<p>使用分库分表来解决写的压力</p>
+<p><img src="C:\Users\14115\AppData\Roaming\Typora\typora-user-images\image-20230904103420270.png" alt="image-20230904103420270"></p>
+<p><strong>MySQL等关系型数据库无法满足多种多样的数据，Nosql数据库就可以很好解救这个问题</strong></p>
+<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p><strong>NoSQL：</strong>Not Only Sql</p>
+<h3 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h3><ul>
+<li><p>方便扩展（数据之间没有关系）</p>
+</li>
+<li><p>大数据量高性能（Redis 一秒写8万，读11万。Nosql的缓存是 记录级别，细粒度高）</p>
+</li>
+<li><p>数据类型多样（不需要实现设计数据库）</p>
+</li>
+</ul>
+<h3 id="传统RDMBMS和NoSQL"><a href="#传统RDMBMS和NoSQL" class="headerlink" title="传统RDMBMS和NoSQL"></a>传统RDMBMS和NoSQL</h3><p><img src="C:\Users\14115\AppData\Roaming\Typora\typora-user-images\image-20230904105105447.png" alt="image-20230904105105447"></p>
+<p><img src="C:\Users\14115\AppData\Roaming\Typora\typora-user-images\image-20230904110034322.png" alt="image-20230904110034322"></p>
+<h2 id="NoSQL分类"><a href="#NoSQL分类" class="headerlink" title="NoSQL分类"></a>NoSQL分类</h2><ul>
+<li><p>KV键值对</p>
+<ul>
+<li>Redis</li>
+</ul>
+</li>
+<li><p>文档型数据库（bson格式)MongoDB</p>
+<ul>
+<li>MongoDB(介于关系型数据库和非关系数据库的中间产品）</li>
+<li>ConthDB</li>
+</ul>
+</li>
+<li><p>列存储数据库</p>
+<ul>
+<li>HBase</li>
+<li>分布式文件系统</li>
+</ul>
+</li>
+<li><p>图关系数据库</p>
+</li>
+</ul>
+<p>​		</p>
+<p><img src="C:\Users\14115\AppData\Roaming\Typora\typora-user-images\image-20230904110803605.png" alt="image-20230904110803605"></p>
+<h1 id="Redis"><a href="#Redis" class="headerlink" title="Redis"></a>Redis</h1><h2 id="Redis-性能测试"><a href="#Redis-性能测试" class="headerlink" title="Redis 性能测试"></a>Redis 性能测试</h2><p>Redis 性能测试是通过同时执行多个命令实现的。</p>
+<h3 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h3><p>redis 性能测试的基本命令如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">redis-benchmark [option] [option value]</span><br></pre></td></tr></table></figure>
+
+<p><strong>注意</strong>：该命令是在 redis 的目录下执行的，而不是 redis 客户端的内部指令。</p>
+<h3 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h3><p>以下实例同时执行 10000 个请求来检测性能：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">$ redis-benchmark -n 10000  -q</span><br><span class="line"></span><br><span class="line">PING_INLINE: 141043.72 requests per second</span><br><span class="line">PING_BULK: 142857.14 requests per second</span><br><span class="line">SET: 141442.72 requests per second</span><br><span class="line">GET: 145348.83 requests per second</span><br><span class="line">INCR: 137362.64 requests per second</span><br><span class="line">LPUSH: 145348.83 requests per second</span><br><span class="line">LPOP: 146198.83 requests per second</span><br><span class="line">SADD: 146198.83 requests per second</span><br><span class="line">SPOP: 149253.73 requests per second</span><br><span class="line">LPUSH (needed to benchmark LRANGE): 148588.42 requests per second</span><br><span class="line">LRANGE_100 (first 100 elements): 58411.21 requests per second</span><br><span class="line">LRANGE_300 (first 300 elements): 21195.42 requests per second</span><br><span class="line">LRANGE_500 (first 450 elements): 14539.11 requests per second</span><br><span class="line">LRANGE_600 (first 600 elements): 10504.20 requests per second</span><br><span class="line">MSET (10 keys): 93283.58 requests per second</span><br></pre></td></tr></table></figure>
+
+<p>redis 性能测试工具可选参数如下所示：</p>
+<table>
+<thead>
+<tr>
+<th align="left">序号</th>
+<th align="left">选项</th>
+<th align="left">描述</th>
+<th align="left">默认值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">1</td>
+<td align="left"><strong>-h</strong></td>
+<td align="left">指定服务器主机名</td>
+<td align="left">127.0.0.1</td>
+</tr>
+<tr>
+<td align="left">2</td>
+<td align="left"><strong>-p</strong></td>
+<td align="left">指定服务器端口</td>
+<td align="left">6379</td>
+</tr>
+<tr>
+<td align="left">3</td>
+<td align="left"><strong>-s</strong></td>
+<td align="left">指定服务器 socket</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">4</td>
+<td align="left"><strong>-c</strong></td>
+<td align="left">指定并发连接数</td>
+<td align="left">50</td>
+</tr>
+<tr>
+<td align="left">5</td>
+<td align="left"><strong>-n</strong></td>
+<td align="left">指定请求数</td>
+<td align="left">10000</td>
+</tr>
+<tr>
+<td align="left">6</td>
+<td align="left"><strong>-d</strong></td>
+<td align="left">以字节的形式指定 SET&#x2F;GET 值的数据大小</td>
+<td align="left">2</td>
+</tr>
+<tr>
+<td align="left">7</td>
+<td align="left"><strong>-k</strong></td>
+<td align="left">1&#x3D;keep alive 0&#x3D;reconnect</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">8</td>
+<td align="left"><strong>-r</strong></td>
+<td align="left">SET&#x2F;GET&#x2F;INCR 使用随机 key, SADD 使用随机值</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">9</td>
+<td align="left"><strong>-P</strong></td>
+<td align="left">通过管道传输 <numreq> 请求</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">10</td>
+<td align="left"><strong>-q</strong></td>
+<td align="left">强制退出 redis。仅显示 query&#x2F;sec 值</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">11</td>
+<td align="left"><strong>–csv</strong></td>
+<td align="left">以 CSV 格式输出</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">12</td>
+<td align="left">***-l*（L 的小写字母）**</td>
+<td align="left">生成循环，永久执行测试</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">13</td>
+<td align="left"><strong>-t</strong></td>
+<td align="left">仅运行以逗号分隔的测试命令列表。</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">14</td>
+<td align="left">***-I*（i 的大写字母）**</td>
+<td align="left">Idle 模式。仅打开 N 个 idle 连接并等待。</td>
+<td align="left"></td>
+</tr>
+</tbody></table>
+<h2 id="Redis数据类型、命令"><a href="#Redis数据类型、命令" class="headerlink" title="Redis数据类型、命令"></a>Redis数据类型、命令</h2><h3 id="Redis-列表命令"><a href="#Redis-列表命令" class="headerlink" title="Redis 列表命令"></a>Redis 列表命令</h3><p>下表列出了列表相关的基本命令：</p>
+<table>
+<thead>
+<tr>
+<th align="left">序号</th>
+<th align="left">命令及描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">1</td>
+<td align="left">[BLPOP key1 <a target="_blank" rel="noopener" href="https://www.runoob.com/redis/lists-blpop.html">key2 ] timeout</a> 移出并获取列表的第一个元素， 如果列表没有元素会阻塞列表直到等待超时或发现可弹出元素为止。</td>
+</tr>
+<tr>
+<td align="left">2</td>
+<td align="left">[BRPOP key1 <a target="_blank" rel="noopener" href="https://www.runoob.com/redis/lists-brpop.html">key2 ] timeout</a> 移出并获取列表的最后一个元素， 如果列表没有元素会阻塞列表直到等待超时或发现可弹出元素为止。</td>
+</tr>
+<tr>
+<td align="left">3</td>
+<td align="left"><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/lists-brpoplpush.html">BRPOPLPUSH source destination timeout</a> 从列表中弹出一个值，将弹出的元素插入到另外一个列表中并返回它； 如果列表没有元素会阻塞列表直到等待超时或发现可弹出元素为止。</td>
+</tr>
+<tr>
+<td align="left">4</td>
+<td align="left"><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/lists-lindex.html">LINDEX key index</a> 通过索引获取列表中的元素</td>
+</tr>
+<tr>
+<td align="left">5</td>
+<td align="left"><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/lists-linsert.html">LINSERT key BEFORE|AFTER pivot value</a> 在列表的元素前或者后插入元素</td>
+</tr>
+<tr>
+<td align="left">6</td>
+<td align="left"><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/lists-llen.html">LLEN key</a> 获取列表长度</td>
+</tr>
+<tr>
+<td align="left">7</td>
+<td align="left"><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/lists-lpop.html">LPOP key</a> 移出并获取列表的第一个元素</td>
+</tr>
+<tr>
+<td align="left">8</td>
+<td align="left">[LPUSH key value1 <a target="_blank" rel="noopener" href="https://www.runoob.com/redis/lists-lpush.html">value2]</a> 将一个或多个值插入到列表头部</td>
+</tr>
+<tr>
+<td align="left">9</td>
+<td align="left"><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/lists-lpushx.html">LPUSHX key value</a> 将一个值插入到已存在的列表头部</td>
+</tr>
+<tr>
+<td align="left">10</td>
+<td align="left"><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/lists-lrange.html">LRANGE key start stop</a> 获取列表指定范围内的元素</td>
+</tr>
+<tr>
+<td align="left">11</td>
+<td align="left"><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/lists-lrem.html">LREM key count value</a> 移除列表元素</td>
+</tr>
+<tr>
+<td align="left">12</td>
+<td align="left"><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/lists-lset.html">LSET key index value</a> 通过索引设置列表元素的值</td>
+</tr>
+<tr>
+<td align="left">13</td>
+<td align="left"><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/lists-ltrim.html">LTRIM key start stop</a> 对一个列表进行修剪(trim)，就是说，让列表只保留指定区间内的元素，不在指定区间之内的元素都将被删除。</td>
+</tr>
+<tr>
+<td align="left">14</td>
+<td align="left"><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/lists-rpop.html">RPOP key</a> 移除列表的最后一个元素，返回值为移除的元素。</td>
+</tr>
+<tr>
+<td align="left">15</td>
+<td align="left"><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/lists-rpoplpush.html">RPOPLPUSH source destination</a> 移除列表的最后一个元素，并将该元素添加到另一个列表并返回</td>
+</tr>
+<tr>
+<td align="left">16</td>
+<td align="left">[RPUSH key value1 <a target="_blank" rel="noopener" href="https://www.runoob.com/redis/lists-rpush.html">value2]</a> 在列表中添加一个或多个值到列表尾部</td>
+</tr>
+<tr>
+<td align="left">17</td>
+<td align="left"><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/lists-rpushx.html">RPUSHX key value</a> 为已存在的列表添加值</td>
+</tr>
+</tbody></table>
+<h3 id="Redis-字符串命令"><a href="#Redis-字符串命令" class="headerlink" title="Redis 字符串命令"></a>Redis 字符串命令</h3><p>下表列出了常用的 redis 字符串命令：</p>
+<table>
+<thead>
+<tr>
+<th align="left">序号</th>
+<th align="left">命令及描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">1</td>
+<td align="left"><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/strings-set.html">SET key value</a> 设置指定 key 的值。</td>
+</tr>
+<tr>
+<td align="left">2</td>
+<td align="left"><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/strings-get.html">GET key</a> 获取指定 key 的值。</td>
+</tr>
+<tr>
+<td align="left">3</td>
+<td align="left"><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/strings-getrange.html">GETRANGE key start end</a> 返回 key 中字符串值的子字符</td>
+</tr>
+<tr>
+<td align="left">4</td>
+<td align="left"><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/strings-getset.html">GETSET key value</a> 将给定 key 的值设为 value ，并返回 key 的旧值(old value)。</td>
+</tr>
+<tr>
+<td align="left">5</td>
+<td align="left"><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/strings-getbit.html">GETBIT key offset</a> 对 key 所储存的字符串值，获取指定偏移量上的位(bit)。</td>
+</tr>
+<tr>
+<td align="left">6</td>
+<td align="left">[MGET key1 <a target="_blank" rel="noopener" href="https://www.runoob.com/redis/strings-mget.html">key2..]</a> 获取所有(一个或多个)给定 key 的值。</td>
+</tr>
+<tr>
+<td align="left">7</td>
+<td align="left"><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/strings-setbit.html">SETBIT key offset value</a> 对 key 所储存的字符串值，设置或清除指定偏移量上的位(bit)。</td>
+</tr>
+<tr>
+<td align="left">8</td>
+<td align="left"><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/strings-setex.html">SETEX key seconds value</a> 将值 value 关联到 key ，并将 key 的过期时间设为 seconds (以秒为单位)。</td>
+</tr>
+<tr>
+<td align="left">9</td>
+<td align="left"><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/strings-setnx.html">SETNX key value</a> 只有在 key 不存在时设置 key 的值。</td>
+</tr>
+<tr>
+<td align="left">10</td>
+<td align="left"><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/strings-setrange.html">SETRANGE key offset value</a> 用 value 参数覆写给定 key 所储存的字符串值，从偏移量 offset 开始。</td>
+</tr>
+<tr>
+<td align="left">11</td>
+<td align="left"><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/strings-strlen.html">STRLEN key</a> 返回 key 所储存的字符串值的长度。（分布式锁常用）</td>
+</tr>
+<tr>
+<td align="left">12</td>
+<td align="left">[MSET key value <a target="_blank" rel="noopener" href="https://www.runoob.com/redis/strings-mset.html">key value …]</a> 同时设置一个或多个 key-value 对。</td>
+</tr>
+<tr>
+<td align="left">13</td>
+<td align="left">[MSETNX key value <a target="_blank" rel="noopener" href="https://www.runoob.com/redis/strings-msetnx.html">key value …]</a> 同时设置一个或多个 key-value 对，当且仅当所有给定 key 都不存在。</td>
+</tr>
+<tr>
+<td align="left">14</td>
+<td align="left"><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/strings-psetex.html">PSETEX key milliseconds value</a> 这个命令和 SETEX 命令相似，但它以毫秒为单位设置 key 的生存时间，而不是像 SETEX 命令那样，以秒为单位。</td>
+</tr>
+<tr>
+<td align="left">15</td>
+<td align="left"><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/strings-incr.html">INCR key</a> 将 key 中储存的数字值增一。</td>
+</tr>
+<tr>
+<td align="left">16</td>
+<td align="left"><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/strings-incrby.html">INCRBY key increment</a> 将 key 所储存的值加上给定的增量值（increment） 。</td>
+</tr>
+<tr>
+<td align="left">17</td>
+<td align="left"><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/strings-incrbyfloat.html">INCRBYFLOAT key increment</a> 将 key 所储存的值加上给定的浮点增量值（increment） 。</td>
+</tr>
+<tr>
+<td align="left">18</td>
+<td align="left"><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/strings-decr.html">DECR key</a> 将 key 中储存的数字值减一。</td>
+</tr>
+<tr>
+<td align="left">19</td>
+<td align="left"><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/strings-decrby.html">DECRBY key decrement</a> key 所储存的值减去给定的减量值（decrement） 。</td>
+</tr>
+<tr>
+<td align="left">20</td>
+<td align="left"><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/strings-append.html">APPEND key value</a> 如果 key 已经存在并且是一个字符串， APPEND 命令将指定的 value 追加到该 key 原来值（value）的末尾。</td>
+</tr>
+</tbody></table>
+<h3 id="Redis-集合命令"><a href="#Redis-集合命令" class="headerlink" title="Redis 集合命令"></a>Redis 集合命令</h3><p>下表列出了 Redis 集合基本命令：</p>
+<table>
+<thead>
+<tr>
+<th align="left">序号</th>
+<th align="left">命令及描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">1</td>
+<td align="left">[SADD key member1 <a target="_blank" rel="noopener" href="https://www.runoob.com/redis/sets-sadd.html">member2]</a> 向集合添加一个或多个成员</td>
+</tr>
+<tr>
+<td align="left">2</td>
+<td align="left"><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/sets-scard.html">SCARD key</a> 获取集合的成员数</td>
+</tr>
+<tr>
+<td align="left">3</td>
+<td align="left">[SDIFF key1 <a target="_blank" rel="noopener" href="https://www.runoob.com/redis/sets-sdiff.html">key2]</a> 返回第一个集合与其他集合之间的差异。</td>
+</tr>
+<tr>
+<td align="left">4</td>
+<td align="left">[SDIFFSTORE destination key1 <a target="_blank" rel="noopener" href="https://www.runoob.com/redis/sets-sdiffstore.html">key2]</a> 返回给定所有集合的差集并存储在 destination 中</td>
+</tr>
+<tr>
+<td align="left">5</td>
+<td align="left">[SINTER key1 <a target="_blank" rel="noopener" href="https://www.runoob.com/redis/sets-sinter.html">key2]</a> 返回给定所有集合的交集</td>
+</tr>
+<tr>
+<td align="left">6</td>
+<td align="left">[SINTERSTORE destination key1 <a target="_blank" rel="noopener" href="https://www.runoob.com/redis/sets-sinterstore.html">key2]</a> 返回给定所有集合的交集并存储在 destination 中</td>
+</tr>
+<tr>
+<td align="left">7</td>
+<td align="left"><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/sets-sismember.html">SISMEMBER key member</a> 判断 member 元素是否是集合 key 的成员</td>
+</tr>
+<tr>
+<td align="left">8</td>
+<td align="left"><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/sets-smembers.html">SMEMBERS key</a> 返回集合中的所有成员</td>
+</tr>
+<tr>
+<td align="left">9</td>
+<td align="left"><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/sets-smove.html">SMOVE source destination member</a> 将 member 元素从 source 集合移动到 destination 集合</td>
+</tr>
+<tr>
+<td align="left">10</td>
+<td align="left"><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/sets-spop.html">SPOP key</a> 移除并返回集合中的一个随机元素</td>
+</tr>
+<tr>
+<td align="left">11</td>
+<td align="left">[SRANDMEMBER key <a target="_blank" rel="noopener" href="https://www.runoob.com/redis/sets-srandmember.html">count]</a> 返回集合中一个或多个随机数</td>
+</tr>
+<tr>
+<td align="left">12</td>
+<td align="left">[SREM key member1 <a target="_blank" rel="noopener" href="https://www.runoob.com/redis/sets-srem.html">member2]</a> 移除集合中一个或多个成员</td>
+</tr>
+<tr>
+<td align="left">13</td>
+<td align="left">[SUNION key1 <a target="_blank" rel="noopener" href="https://www.runoob.com/redis/sets-sunion.html">key2]</a> 返回所有给定集合的并集</td>
+</tr>
+<tr>
+<td align="left">14</td>
+<td align="left">[SUNIONSTORE destination key1 <a target="_blank" rel="noopener" href="https://www.runoob.com/redis/sets-sunionstore.html">key2]</a> 所有给定集合的并集存储在 destination 集合中</td>
+</tr>
+<tr>
+<td align="left">15</td>
+<td align="left">[SSCAN key cursor <a target="_blank" rel="noopener" href="https://www.runoob.com/redis/sets-sscan.html">MATCH pattern] [COUNT count]</a> 迭代集合中的元素</td>
+</tr>
+</tbody></table>
+<h3 id="Redis-hash-命令"><a href="#Redis-hash-命令" class="headerlink" title="Redis hash 命令"></a>Redis hash 命令</h3><p>下表列出了 redis hash 基本的相关命令：</p>
+<table>
+<thead>
+<tr>
+<th align="left">序号</th>
+<th align="left">命令及描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">1</td>
+<td align="left">[HDEL key field1 <a target="_blank" rel="noopener" href="https://www.runoob.com/redis/hashes-hdel.html">field2]</a> 删除一个或多个哈希表字段</td>
+</tr>
+<tr>
+<td align="left">2</td>
+<td align="left"><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/hashes-hexists.html">HEXISTS key field</a> 查看哈希表 key 中，指定的字段是否存在。</td>
+</tr>
+<tr>
+<td align="left">3</td>
+<td align="left"><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/hashes-hget.html">HGET key field</a> 获取存储在哈希表中指定字段的值。</td>
+</tr>
+<tr>
+<td align="left">4</td>
+<td align="left"><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/hashes-hgetall.html">HGETALL key</a> 获取在哈希表中指定 key 的所有字段和值</td>
+</tr>
+<tr>
+<td align="left">5</td>
+<td align="left"><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/hashes-hincrby.html">HINCRBY key field increment</a> 为哈希表 key 中的指定字段的整数值加上增量 increment 。</td>
+</tr>
+<tr>
+<td align="left">6</td>
+<td align="left"><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/hashes-hincrbyfloat.html">HINCRBYFLOAT key field increment</a> 为哈希表 key 中的指定字段的浮点数值加上增量 increment 。</td>
+</tr>
+<tr>
+<td align="left">7</td>
+<td align="left"><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/hashes-hkeys.html">HKEYS key</a> 获取哈希表中的所有字段</td>
+</tr>
+<tr>
+<td align="left">8</td>
+<td align="left"><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/hashes-hlen.html">HLEN key</a> 获取哈希表中字段的数量</td>
+</tr>
+<tr>
+<td align="left">9</td>
+<td align="left">[HMGET key field1 <a target="_blank" rel="noopener" href="https://www.runoob.com/redis/hashes-hmget.html">field2]</a> 获取所有给定字段的值</td>
+</tr>
+<tr>
+<td align="left">10</td>
+<td align="left">[HMSET key field1 value1 <a target="_blank" rel="noopener" href="https://www.runoob.com/redis/hashes-hmset.html">field2 value2 ]</a> 同时将多个 field-value (域-值)对设置到哈希表 key 中。</td>
+</tr>
+<tr>
+<td align="left">11</td>
+<td align="left"><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/hashes-hset.html">HSET key field value</a> 将哈希表 key 中的字段 field 的值设为 value 。</td>
+</tr>
+<tr>
+<td align="left">12</td>
+<td align="left"><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/hashes-hsetnx.html">HSETNX key field value</a> 只有在字段 field 不存在时，设置哈希表字段的值。</td>
+</tr>
+<tr>
+<td align="left">13</td>
+<td align="left"><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/hashes-hvals.html">HVALS key</a> 获取哈希表中所有值。</td>
+</tr>
+<tr>
+<td align="left">14</td>
+<td align="left">[HSCAN key cursor <a target="_blank" rel="noopener" href="https://www.runoob.com/redis/hashes-hscan.html">MATCH pattern] [COUNT count]</a> 迭代哈希表中的键值对。</td>
+</tr>
+</tbody></table>
+<h3 id="Redis-HyperLogLog-命令"><a href="#Redis-HyperLogLog-命令" class="headerlink" title="Redis HyperLogLog 命令"></a>Redis HyperLogLog 命令</h3><p><strong>下表列出了 redis HyperLogLog 的基本命令：</strong></p>
+<table>
+<thead>
+<tr>
+<th align="left">序号</th>
+<th align="left">命令及描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">1</td>
+<td align="left">[PFADD key element <a target="_blank" rel="noopener" href="https://www.runoob.com/redis/hyperloglog-pfadd.html">element …]</a> 添加指定元素到 HyperLogLog 中。</td>
+</tr>
+<tr>
+<td align="left">2</td>
+<td align="left">[PFCOUNT key <a target="_blank" rel="noopener" href="https://www.runoob.com/redis/hyperloglog-pfcount.html">key …]</a> 返回给定 HyperLogLog 的基数估算值。</td>
+</tr>
+<tr>
+<td align="left">3</td>
+<td align="left">[PFMERGE destkey sourcekey <a target="_blank" rel="noopener" href="https://www.runoob.com/redis/hyperloglog-pfmerge.html">sourcekey …]</a> 将多个 HyperLogLog 合并为一个 HyperLogLog</td>
+</tr>
+</tbody></table>
+<h4 id="计算过程"><a href="#计算过程" class="headerlink" title="计算过程"></a>计算过程</h4><p>假设我们需要统计网站访问uv，用户标识为ID字段。 我们可以对ID计算hash值，假设为32位值M，M从二进制角度看即为一串二进制序列，也可以看成是一次抛硬币实验，由于hash函数的散列化功能，对多个ID计算hash，可以认为是多次抛硬币实验。</p>
+<p>所以，我们可以按照如下过程计算基数值：</p>
+<ol>
+<li>对ID计算hash值</li>
+<li>将hash值看作32位二进制数，从左至右找到第一个<code>1</code>出现的下标</li>
+<li>获取下标出现的最大值n</li>
+<li>基数预估值即为：2^n</li>
+</ol>
+<h3 id="RedisBit"><a href="#RedisBit" class="headerlink" title="RedisBit"></a>RedisBit</h3><p>127.0.0.1:6379&gt; setbit sign 0 1<br>(integer) 0<br>127.0.0.1:6379&gt; setbit sign 1 1<br>(integer) 0<br>127.0.0.1:6379&gt; setbit sign 2 1<br>(integer) 0<br>127.0.0.1:6379&gt; setbit sign 2 0<br>(integer) 1<br>127.0.0.1:6379&gt; setbit sign 3 1<br>(integer) 0<br>127.0.0.1:6379&gt; setbit sign 4 0<br>(integer) 0<br>127.0.0.1:6379&gt; getbit sign 4<br>(integer) 0<br>127.0.0.1:6379&gt; getbit sign 3<br>(integer) 1<br>127.0.0.1:6379&gt; bitcout sign<br>(error) ERR unknown command ‘bitcout’<br>127.0.0.1:6379&gt; bitcount sign<br>(integer) 3</p>
+<h2 id="事务"><a href="#事务" class="headerlink" title="事务"></a>事务</h2><ul>
+<li><p>Redis单条命令保存原子性，但是事务不保证原子性</p>
+</li>
+<li><p>Redis事务没有隔离级别</p>
+<p>​	所有命令在事务中，并没有被直接执行，只有发起执行命令才会被执行</p>
+</li>
+</ul>
+<p>Redis事务：</p>
+<ul>
+<li>开启事务（multi)</li>
+<li>命令入队</li>
+<li>执行事务(exec)</li>
+<li>放弃事务（discard）</li>
+</ul>
+<p><code>OK</code><br><code>127.0.0.1:6379&gt; multi</code><br><code>OK</code><br><code>127.0.0.1:6379&gt; set k1 v1</code><br><code>QUEUED</code><br><code>127.0.0.1:6379&gt; set k2 v2</code><br><code>QUEUED</code><br><code>127.0.0.1:6379&gt; set k3 v3</code><br><code>QUEUED</code><br><code>127.0.0.1:6379&gt; exec</code></p>
+<ol>
+<li><code>OK</code></li>
+<li><code>OK</code></li>
+<li><code>OK</code></li>
+</ol>
+<p><img src="C:\Users\14115\AppData\Roaming\Typora\typora-user-images\image-20230904141930979.png" alt="image-20230904141930979"></p>
+<p>无法保证原子性就是因为运行时异常，其他命令仍是可以正常执行的</p>
+<h3 id="Redis-事务命令"><a href="#Redis-事务命令" class="headerlink" title="Redis 事务命令"></a>Redis 事务命令</h3><p>下表列出了 redis 事务的相关命令：</p>
+<table>
+<thead>
+<tr>
+<th align="left">序号</th>
+<th align="left">命令及描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">1</td>
+<td align="left"><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/transactions-discard.html">DISCARD</a> 取消事务，放弃执行事务块内的所有命令。</td>
+</tr>
+<tr>
+<td align="left">2</td>
+<td align="left"><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/transactions-exec.html">EXEC</a> 执行所有事务块内的命令。</td>
+</tr>
+<tr>
+<td align="left">3</td>
+<td align="left"><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/transactions-multi.html">MULTI</a> 标记一个事务块的开始。</td>
+</tr>
+<tr>
+<td align="left">4</td>
+<td align="left"><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/transactions-unwatch.html">UNWATCH</a> 取消 WATCH 命令对所有 key 的监视。</td>
+</tr>
+<tr>
+<td align="left">5</td>
+<td align="left">[WATCH key <a target="_blank" rel="noopener" href="https://www.runoob.com/redis/transactions-watch.html">key …]</a> 监视一个(或多个) key ，如果在事务执行之前这个(或这些) key 被其他命令所改动，那么事务将被打断。</td>
+</tr>
+</tbody></table>
+<h2 id="监控"><a href="#监控" class="headerlink" title="监控"></a>监控</h2><h3 id="悲观锁"><a href="#悲观锁" class="headerlink" title="悲观锁"></a>悲观锁</h3><h3 id="乐观锁"><a href="#乐观锁" class="headerlink" title="乐观锁"></a>乐观锁</h3><p>使用watch可以当做出redis乐观锁操作</p>
+<h2 id="Jedis"><a href="#Jedis" class="headerlink" title="Jedis"></a>Jedis</h2><p>采用的是直连，多线程操作是不安全的，需要jedis pool连接池</p>
+<p>测试连接</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Jedis</span> <span class="variable">jedis</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Jedis</span>(<span class="string">&quot;127.0.0.1&quot;</span>,<span class="number">6379</span>);</span><br><span class="line">System.out.println(jedis.ping());</span><br></pre></td></tr></table></figure>
+
+<p><img src="C:\Users\14115\AppData\Roaming\Typora\typora-user-images\image-20230904145549007.png" alt="image-20230904145549007"></p>
+<h2 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h2><ul>
+<li><p>对大小写不敏感</p>
+</li>
+<li><p>includes可以包含多个配置文件</p>
+</li>
+<li><p>bind 127.0.0.1  </p>
+</li>
+<li><p>port 6379</p>
+<p><img src="C:\Users\14115\AppData\Roaming\Typora\typora-user-images\image-20230904162451094.png" alt="image-20230904162451094"></p>
+</li>
+</ul>
+<p><img src="C:\Users\14115\AppData\Roaming\Typora\typora-user-images\image-20230904162604717.png" alt="image-20230904162604717"></p>
+<p><img src="C:\Users\14115\AppData\Roaming\Typora\typora-user-images\image-20230904163324921.png" alt="image-20230904163324921"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/09/19/Redis/" data-id="clmpc708300016oks8hvc2mgw" data-title="" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2023/09/19/mysql/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          (no title)
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2023/09/19/Mybatis/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title"></div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/09/">September 2023</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2023/09/19/html/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2023/09/19/java%E7%AC%94%E8%AE%B0/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2023/09/19/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2023/09/19/SSM/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2023/09/19/mysql/">(no title)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2023 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

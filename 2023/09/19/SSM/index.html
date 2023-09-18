@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="Spring概要Spring优势：  降低企业级开发复杂度 高效整合技术，提高效率  核心：  IoC AOP 事务处理    Spring的主要技术：  Spring Framework: 底层框架  Spring boot: 加速开发  Spring cloud   AOP: 面向切面编程 Aspects: AOP思想实现  IoC 控制反转为了解决代码耦合度偏高，在程序中不主动使用new产生">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://example.com/2023/09/19/SSM/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Spring概要Spring优势：  降低企业级开发复杂度 高效整合技术，提高效率  核心：  IoC AOP 事务处理    Spring的主要技术：  Spring Framework: 底层框架  Spring boot: 加速开发  Spring cloud   AOP: 面向切面编程 Aspects: AOP思想实现  IoC 控制反转为了解决代码耦合度偏高，在程序中不主动使用new产生">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="c:\Users\14115\AppData\Roaming\Typora\typora-user-images\image-20220714205607676.png">
+<meta property="og:image" content="c:\Users\14115\AppData\Roaming\Typora\typora-user-images\image-20220821164303723.png">
+<meta property="og:image" content="c:\Users\14115\AppData\Roaming\Typora\typora-user-images\image-20220821164501556.png">
+<meta property="og:image" content="c:\Users\14115\AppData\Roaming\Typora\typora-user-images\image-20220821164930913.png">
+<meta property="og:image" content="c:\Users\14115\AppData\Roaming\Typora\typora-user-images\image-20220821172430209.png">
+<meta property="og:image" content="c:\Users\14115\AppData\Roaming\Typora\typora-user-images\image-20220821172448503.png">
+<meta property="og:image" content="c:\Users\14115\AppData\Roaming\Typora\typora-user-images\image-20220822161113327.png">
+<meta property="og:image" content="c:\Users\14115\AppData\Roaming\Typora\typora-user-images\image-20220822162058906.png">
+<meta property="og:image" content="c:\Users\14115\AppData\Roaming\Typora\typora-user-images\image-20220822163349311.png">
+<meta property="og:image" content="c:\Users\14115\AppData\Roaming\Typora\typora-user-images\image-20220822163451402.png">
+<meta property="og:image" content="c:\Users\14115\AppData\Roaming\Typora\typora-user-images\image-20220822162419274.png">
+<meta property="og:image" content="c:\Users\14115\AppData\Roaming\Typora\typora-user-images\image-20220822165614395.png">
+<meta property="og:image" content="c:\Users\14115\AppData\Roaming\Typora\typora-user-images\image-20220822165904525.png">
+<meta property="og:image" content="c:\Users\14115\AppData\Roaming\Typora\typora-user-images\image-20220823182231384.png">
+<meta property="og:image" content="c:\Users\14115\AppData\Roaming\Typora\typora-user-images\image-20220823183332758.png">
+<meta property="og:image" content="c:\Users\14115\AppData\Roaming\Typora\typora-user-images\image-20220823183346785.png">
+<meta property="og:image" content="c:\Users\14115\AppData\Roaming\Typora\typora-user-images\image-20220823191437794.png">
+<meta property="og:image" content="c:\Users\14115\AppData\Roaming\Typora\typora-user-images\image-20220904133534322.png">
+<meta property="og:image" content="c:\Users\14115\AppData\Roaming\Typora\typora-user-images\image-20220904134022671.png">
+<meta property="og:image" content="c:\Users\14115\AppData\Roaming\Typora\typora-user-images\image-20220908154939376.png">
+<meta property="og:image" content="c:\Users\14115\AppData\Roaming\Typora\typora-user-images\image-20220908154953271.png">
+<meta property="og:image" content="c:\Users\14115\AppData\Roaming\Typora\typora-user-images\image-20220908155121063.png">
+<meta property="og:image" content="c:\Users\14115\AppData\Roaming\Typora\typora-user-images\image-20220910092424500.png">
+<meta property="og:image" content="c:\Users\14115\AppData\Roaming\Typora\typora-user-images\image-20220910092943486.png">
+<meta property="og:image" content="c:\Users\14115\AppData\Roaming\Typora\typora-user-images\image-20220910093522816.png">
+<meta property="og:image" content="c:\Users\14115\AppData\Roaming\Typora\typora-user-images\image-20220910093531833.png">
+<meta property="og:image" content="c:\Users\14115\AppData\Roaming\Typora\typora-user-images\image-20220910094037834.png">
+<meta property="og:image" content="c:\Users\14115\AppData\Roaming\Typora\typora-user-images\image-20220910094102060.png">
+<meta property="og:image" content="c:\Users\14115\AppData\Roaming\Typora\typora-user-images\image-20220910094114354.png">
+<meta property="og:image" content="c:\Users\14115\AppData\Roaming\Typora\typora-user-images\image-20220911223530354.png">
+<meta property="og:image" content="c:\Users\14115\AppData\Roaming\Typora\typora-user-images\image-20220911223722801.png">
+<meta property="og:image" content="c:\Users\14115\AppData\Roaming\Typora\typora-user-images\image-20220911223812374.png">
+<meta property="og:image" content="c:\Users\14115\AppData\Roaming\Typora\typora-user-images\image-20220912151444657.png">
+<meta property="og:image" content="c:\Users\14115\AppData\Roaming\Typora\typora-user-images\image-20220912150859360.png">
+<meta property="og:image" content="c:\Users\14115\AppData\Roaming\Typora\typora-user-images\image-20220912150910081.png">
+<meta property="og:image" content="c:\Users\14115\AppData\Roaming\Typora\typora-user-images\image-20220918115345914.png">
+<meta property="og:image" content="c:\Users\14115\AppData\Roaming\Typora\typora-user-images\image-20220922212049396.png">
+<meta property="og:image" content="c:\Users\14115\AppData\Roaming\Typora\typora-user-images\image-20220922212713186.png">
+<meta property="og:image" content="c:\Users\14115\AppData\Roaming\Typora\typora-user-images\image-20220922213750931.png">
+<meta property="og:image" content="c:\Users\14115\AppData\Roaming\Typora\typora-user-images\image-20220922213832198.png">
+<meta property="og:image" content="c:\Users\14115\AppData\Roaming\Typora\typora-user-images\image-20220922213806163.png">
+<meta property="og:image" content="c:\Users\14115\AppData\Roaming\Typora\typora-user-images\image-20220922213711364.png">
+<meta property="og:image" content="c:\Users\14115\AppData\Roaming\Typora\typora-user-images\image-20220922220750576.png">
+<meta property="og:image" content="c:\Users\14115\AppData\Roaming\Typora\typora-user-images\image-20220922220905905.png">
+<meta property="og:image" content="c:\Users\14115\AppData\Roaming\Typora\typora-user-images\image-20221127222557014.png">
+<meta property="og:image" content="c:\Users\14115\AppData\Roaming\Typora\typora-user-images\image-20221127222817293.png">
+<meta property="og:image" content="c:\Users\14115\AppData\Roaming\Typora\typora-user-images\image-20221208162224854.png">
+<meta property="og:image" content="c:\Users\14115\AppData\Roaming\Typora\typora-user-images\image-20221208163810111.png">
+<meta property="og:image" content="c:\Users\14115\AppData\Roaming\Typora\typora-user-images\image-20221208163820948.png">
+<meta property="og:image" content="c:\Users\14115\AppData\Roaming\Typora\typora-user-images\image-20221208163938049.png">
+<meta property="og:image" content="c:\Users\14115\AppData\Roaming\Typora\typora-user-images\image-20221208164444874.png">
+<meta property="article:published_time" content="2023-09-18T20:24:23.724Z">
+<meta property="article:modified_time" content="2022-12-08T08:55:48.554Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="c:\Users\14115\AppData\Roaming\Typora\typora-user-images\image-20220714205607676.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="Search"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-SSM" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/09/19/SSM/" class="article-date">
+  <time class="dt-published" datetime="2023-09-18T20:24:23.724Z" itemprop="datePublished">2023-09-19</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="Spring概要"><a href="#Spring概要" class="headerlink" title="Spring概要"></a>Spring概要</h1><p><strong>Spring优势：</strong></p>
+<ul>
+<li>降低企业级开发复杂度</li>
+<li>高效整合技术，提高效率</li>
+</ul>
+<p><strong>核心：</strong></p>
+<ul>
+<li>IoC</li>
+<li>AOP<ul>
+<li>事务处理</li>
+</ul>
+</li>
+</ul>
+<p><strong>Spring的主要技术：</strong></p>
+<ul>
+<li><p>Spring Framework: 底层框架</p>
+</li>
+<li><p>Spring boot: 加速开发</p>
+</li>
+<li><p>Spring cloud</p>
+</li>
+</ul>
+<p>AOP: 面向切面编程</p>
+<p>Aspects: AOP思想实现</p>
+<p><img src="C:\Users\14115\AppData\Roaming\Typora\typora-user-images\image-20220714205607676.png" alt="image-20220714205607676"></p>
+<h2 id="IoC-控制反转"><a href="#IoC-控制反转" class="headerlink" title="IoC 控制反转"></a>IoC 控制反转</h2><p>为了解决代码耦合度偏高，在程序中不主动使用new产生对象，转为外部提供对象。</p>
+<p>Spring技术对Ioc思想进行了实现。spring提供一个容器，用来充当Ioc思想中的“外部”。</p>
+<p>被创建和管理的Ioc对象被称为bean（管理Service和Dao）</p>
+<h2 id="DI-依赖注入"><a href="#DI-依赖注入" class="headerlink" title="DI 依赖注入"></a>DI 依赖注入</h2><p>在容器中建立bean于bean之间的依赖关系的整个过程，成为依赖注入。</p>
+<p><strong>作用</strong>：使用对象时可以从IoC容器直接获取，并且获取到的bean已经</p>
+<p>绑定了所有依赖。</p>
+<h3 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h3><ol>
+<li>导入Spring依赖</li>
+</ol>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-context<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>5.2.1.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li><p>为IoC容器进行配置(resources中配置applicationContext.xml)</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;UTF-8&quot;</span>?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">beans</span> <span class="attr">xmlns</span>=<span class="string">&quot;http://www.springframework.org/schema/beans&quot;</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xmlns:xsi</span>=<span class="string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xsi:schemaLocation</span>=<span class="string">&quot;http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!--配置bean--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;BookDao&quot;</span> <span class="attr">class</span>=<span class="string">&quot;com.darling.dao.Impl.BookDaoImpl&quot;</span>/ <span class="attr">scope</span>=<span class="string">&quot;prototype&quot;</span>&gt;</span></span><br><span class="line">	<span class="comment">&lt;!--为Service注入Dao--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;BookService&quot;</span> <span class="attr">class</span>=<span class="string">&quot;com.darling.service.Impl.BookServiceImpl&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;bookDao&quot;</span> <span class="attr">ref</span>=<span class="string">&quot;BookDao&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--bean可以有别名，标签name--&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">beans</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+<p>3.在需要使用bean的类中设置set方法即可获取bean(减少new对象，降低代码耦合)</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setBookDao</span><span class="params">(BookDao bookDao)</span> &#123;</span><br><span class="line">    <span class="built_in">this</span>.bookDao = bookDao;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="C:\Users\14115\AppData\Roaming\Typora\typora-user-images\image-20220821164303723.png" alt="image-20220821164303723"></p>
+<p><img src="C:\Users\14115\AppData\Roaming\Typora\typora-user-images\image-20220821164501556.png" alt="image-20220821164501556"></p>
+<h2 id="Bean"><a href="#Bean" class="headerlink" title="Bean"></a>Bean</h2><h3 id="bean实例化方式"><a href="#bean实例化方式" class="headerlink" title="bean实例化方式"></a>bean实例化方式</h3><p><img src="C:\Users\14115\AppData\Roaming\Typora\typora-user-images\image-20220821164930913.png" alt="image-20220821164930913"></p>
+<p><img src="C:\Users\14115\AppData\Roaming\Typora\typora-user-images\image-20220821172430209.png" alt="image-20220821172430209"></p>
+<p><img src="C:\Users\14115\AppData\Roaming\Typora\typora-user-images\image-20220821172448503.png" alt="image-20220821172448503"></p>
+<h2 id="setter注入"><a href="#setter注入" class="headerlink" title="setter注入"></a>setter注入</h2><ul>
+<li>简单类型</li>
+</ul>
+<p><img src="C:\Users\14115\AppData\Roaming\Typora\typora-user-images\image-20220822161113327.png" alt="image-20220822161113327"></p>
+<ul>
+<li>引用类型</li>
+</ul>
+<p><img src="C:\Users\14115\AppData\Roaming\Typora\typora-user-images\image-20220822162058906.png" alt="image-20220822162058906"></p>
+<h3 id="自动装配"><a href="#自动装配" class="headerlink" title="自动装配"></a>自动装配</h3><p><img src="C:\Users\14115\AppData\Roaming\Typora\typora-user-images\image-20220822163349311.png" alt="image-20220822163349311"></p>
+<p><img src="C:\Users\14115\AppData\Roaming\Typora\typora-user-images\image-20220822163451402.png" alt="image-20220822163451402"></p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p><img src="C:\Users\14115\AppData\Roaming\Typora\typora-user-images\image-20220822162419274.png" alt="image-20220822162419274"></p>
+<h2 id="加载Properties文件"><a href="#加载Properties文件" class="headerlink" title="加载Properties文件"></a>加载Properties文件</h2><p><img src="C:\Users\14115\AppData\Roaming\Typora\typora-user-images\image-20220822165614395.png" alt="image-20220822165614395"></p>
+<p><img src="C:\Users\14115\AppData\Roaming\Typora\typora-user-images\image-20220822165904525.png" alt="image-20220822165904525"></p>
+<h2 id="注解开发"><a href="#注解开发" class="headerlink" title="注解开发"></a>注解开发</h2><p><img src="C:\Users\14115\AppData\Roaming\Typora\typora-user-images\image-20220823182231384.png" alt="image-20220823182231384"></p>
+<h3 id="依赖注入"><a href="#依赖注入" class="headerlink" title="依赖注入"></a>依赖注入</h3><p><img src="C:\Users\14115\AppData\Roaming\Typora\typora-user-images\image-20220823183332758.png" alt="image-20220823183332758"></p>
+<p><img src="C:\Users\14115\AppData\Roaming\Typora\typora-user-images\image-20220823183346785.png" alt="image-20220823183346785"></p>
+<h3 id="第三方Bean"><a href="#第三方Bean" class="headerlink" title="第三方Bean"></a>第三方Bean</h3><p><img src="C:\Users\14115\AppData\Roaming\Typora\typora-user-images\image-20220823191437794.png"></p>
+<h1 id="SpringMVC"><a href="#SpringMVC" class="headerlink" title="SpringMVC"></a>SpringMVC</h1><ul>
+<li>SpringMVC是一种基于Java实现的MVC模型的轻量级web框架，使用简单、灵活</li>
+<li><img src="C:\Users\14115\AppData\Roaming\Typora\typora-user-images\image-20220904133534322.png" alt="image-20220904133534322"></li>
+</ul>
+<h2 id="避免Spring加载SpringMVC所需的bean"><a href="#避免Spring加载SpringMVC所需的bean" class="headerlink" title="避免Spring加载SpringMVC所需的bean"></a>避免Spring加载SpringMVC所需的bean</h2><p><img src="C:\Users\14115\AppData\Roaming\Typora\typora-user-images\image-20220904134022671.png" alt="image-20220904134022671"></p>
+<p><strong>排除</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@ComponentScan(value = &quot;com.Darling&quot;,</span></span><br><span class="line"><span class="meta">        excludeFilters = @ComponentScan.Filter(</span></span><br><span class="line"><span class="meta">                type = FilterType.ANNOTATION,</span></span><br><span class="line"><span class="meta">        classes = Controller.class)</span></span><br><span class="line"><span class="meta">)</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="数据传参"><a href="#数据传参" class="headerlink" title="数据传参"></a>数据传参</h2><h3 id="日期参数"><a href="#日期参数" class="headerlink" title="日期参数"></a>日期参数</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RequestMapping(&quot;/dataParam&quot;)</span></span><br><span class="line"><span class="meta">@ResponseBody</span></span><br><span class="line"><span class="keyword">public</span> String <span class="title function_">dataParam</span><span class="params">(Date date,</span></span><br><span class="line"><span class="params">                        <span class="meta">@DateTimeFormat(pattern=&quot;yyyy-MM-dd&quot;)</span> Date date1,</span></span><br><span class="line"><span class="params">                        <span class="meta">@DateTimeFormat(pattern=&quot;yyyy/MM/dd HH:mm:ss&quot;)</span> Date date2)</span>&#123;</span><br><span class="line">    System.out.println(<span class="string">&quot;参数传递 date ==&gt; &quot;</span>+date);</span><br><span class="line">    System.out.println(<span class="string">&quot;参数传递 date1(yyyy-MM-dd) ==&gt; &quot;</span>+date1);</span><br><span class="line">    System.out.println(<span class="string">&quot;参数传递 date2(yyyy/MM/dd HH:mm:ss) ==&gt; &quot;</span>+date2);</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;&#123;&#x27;module&#x27;:&#x27;data param&#x27;&#125;&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="json数据传参"><a href="#json数据传参" class="headerlink" title="json数据传参"></a><strong>json数据传参</strong></h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//集合参数：json格式</span></span><br><span class="line"><span class="comment">//1.开启json数据格式的自动转换，在配置类中开启@EnableWebMvc</span></span><br><span class="line"><span class="comment">//2.使用@RequestBody注解将外部传递的json数组数据映射到形参的集合对象中作为数据</span></span><br><span class="line"><span class="meta">@RequestMapping(&quot;/listParamForJson&quot;)</span></span><br><span class="line"><span class="meta">@ResponseBody</span></span><br><span class="line"><span class="keyword">public</span> String <span class="title function_">listParamForJson</span><span class="params">(<span class="meta">@RequestBody</span> List&lt;String&gt; likes)</span>&#123;</span><br><span class="line">    System.out.println(<span class="string">&quot;list common(json)参数传递 list ==&gt; &quot;</span>+likes);</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;&#123;&#x27;module&#x27;:&#x27;list common for json param&#x27;&#125;&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//POJO参数：json格式</span></span><br><span class="line"><span class="comment">//1.开启json数据格式的自动转换，在配置类中开启@EnableWebMvc</span></span><br><span class="line"><span class="comment">//2.使用@RequestBody注解将外部传递的json数据映射到形参的实体类对象中，要求属性名称一一对应</span></span><br><span class="line"><span class="meta">@RequestMapping(&quot;/pojoParamForJson&quot;)</span></span><br><span class="line"><span class="meta">@ResponseBody</span></span><br><span class="line"><span class="keyword">public</span> String <span class="title function_">pojoParamForJson</span><span class="params">(<span class="meta">@RequestBody</span> User user)</span>&#123;</span><br><span class="line">    System.out.println(<span class="string">&quot;pojo(json)参数传递 user ==&gt; &quot;</span>+user);</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;&#123;&#x27;module&#x27;:&#x27;pojo for json param&#x27;&#125;&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//集合参数：json格式</span></span><br><span class="line"><span class="comment">//1.开启json数据格式的自动转换，在配置类中开启@EnableWebMvc</span></span><br><span class="line"><span class="comment">//2.使用@RequestBody注解将外部传递的json数组数据映射到形参的保存实体类对象的集合对象中，要求属性名称一一对应</span></span><br><span class="line"><span class="meta">@RequestMapping(&quot;/listPojoParamForJson&quot;)</span></span><br><span class="line"><span class="meta">@ResponseBody</span></span><br><span class="line"><span class="keyword">public</span> String <span class="title function_">listPojoParamForJson</span><span class="params">(<span class="meta">@RequestBody</span> List&lt;User&gt; list)</span>&#123;</span><br><span class="line">    System.out.println(<span class="string">&quot;list pojo(json)参数传递 list ==&gt; &quot;</span>+list);</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;&#123;&#x27;module&#x27;:&#x27;list pojo for json param&#x27;&#125;&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="C:\Users\14115\AppData\Roaming\Typora\typora-user-images\image-20220908154939376.png" alt="image-20220908154939376"></p>
+<p><img src="C:\Users\14115\AppData\Roaming\Typora\typora-user-images\image-20220908154953271.png" alt="image-20220908154953271"></p>
+<h3 id="RequestBody与RequestParam区别"><a href="#RequestBody与RequestParam区别" class="headerlink" title="RequestBody与RequestParam区别"></a>RequestBody与RequestParam区别</h3><p><img src="C:\Users\14115\AppData\Roaming\Typora\typora-user-images\image-20220908155121063.png" alt="image-20220908155121063"></p>
+<h2 id="响应"><a href="#响应" class="headerlink" title="响应"></a>响应</h2><h3 id="响应页面"><a href="#响应页面" class="headerlink" title="响应页面"></a>响应页面</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RequestMapping(&quot;/toJumpPage&quot;)</span></span><br><span class="line"><span class="keyword">public</span> String <span class="title function_">toJumpPage</span><span class="params">()</span>&#123;</span><br><span class="line">    System.out.println(<span class="string">&quot;跳转页面&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;index.jsp&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="响应字符串"><a href="#响应字符串" class="headerlink" title="响应字符串"></a>响应字符串</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RequestMapping(&quot;/toText&quot;)</span></span><br><span class="line"><span class="meta">@ResponseBody</span>	<span class="comment">//需要有响应体</span></span><br><span class="line"><span class="keyword">public</span> String <span class="title function_">toText</span><span class="params">()</span>&#123;</span><br><span class="line">    System.out.println(<span class="string">&quot;跳转页面&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;hello world&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="响应pojo对象的json数据"><a href="#响应pojo对象的json数据" class="headerlink" title="响应pojo对象的json数据"></a>响应pojo对象的json数据</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RequestMapping(&quot;/toText&quot;)</span></span><br><span class="line"><span class="meta">@ResponseBody</span></span><br><span class="line"><span class="keyword">public</span> String <span class="title function_">toText</span><span class="params">()</span>&#123;</span><br><span class="line">    System.out.println(<span class="string">&quot;跳转页面&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;hello world&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="C:\Users\14115\AppData\Roaming\Typora\typora-user-images\image-20220910092424500.png" alt="image-20220910092424500"></p>
+<h2 id="REST"><a href="#REST" class="headerlink" title="REST"></a>REST</h2><p><img src="C:\Users\14115\AppData\Roaming\Typora\typora-user-images\image-20220910092943486.png"></p>
+<p><img src="C:\Users\14115\AppData\Roaming\Typora\typora-user-images\image-20220910093522816.png" alt="image-20220910093522816"></p>
+<p><img src="C:\Users\14115\AppData\Roaming\Typora\typora-user-images\image-20220910093531833.png" alt="image-20220910093531833"></p>
+<p><strong>REST快速简化开发</strong></p>
+<p><img src="C:\Users\14115\AppData\Roaming\Typora\typora-user-images\image-20220910094037834.png" alt="image-20220910094037834"></p>
+<p><img src="C:\Users\14115\AppData\Roaming\Typora\typora-user-images\image-20220910094102060.png" alt="image-20220910094102060"></p>
+<p><img src="C:\Users\14115\AppData\Roaming\Typora\typora-user-images\image-20220910094114354.png" alt="image-20220910094114354"></p>
+<h3 id="处理tomcat与SpringMVC冲突"><a href="#处理tomcat与SpringMVC冲突" class="headerlink" title="处理tomcat与SpringMVC冲突"></a>处理tomcat与SpringMVC冲突</h3><p><strong>可以放行静态资源，使静态资源交给tomcat处理</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SpringMvcSupport</span> <span class="keyword">extends</span> <span class="title class_">WebMvcConfigurationSupport</span> &#123;</span><br><span class="line">    <span class="comment">//设置静态资源访问过滤，当前类需要设置为配置类，并被扫描加载</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">addResourceHandlers</span><span class="params">(ResourceHandlerRegistry registry)</span> &#123;<span class="comment">//设置过滤资源</span></span><br><span class="line">       <span class="comment">//当访问/pages/????时候，从/pages目录下查找内容</span></span><br><span class="line">        registry.addResourceHandler(<span class="string">&quot;/pages/**&quot;</span>).addResourceLocations(<span class="string">&quot;/pages/&quot;</span>);</span><br><span class="line">        registry.addResourceHandler(<span class="string">&quot;/js/**&quot;</span>).addResourceLocations(<span class="string">&quot;/js/&quot;</span>);</span><br><span class="line">        registry.addResourceHandler(<span class="string">&quot;/css/**&quot;</span>).addResourceLocations(<span class="string">&quot;/css/&quot;</span>);</span><br><span class="line">        registry.addResourceHandler(<span class="string">&quot;/plugins/**&quot;</span>).addResourceLocations(<span class="string">&quot;/plugins/&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="制作Rest风格页面数据交互"><a href="#制作Rest风格页面数据交互" class="headerlink" title="制作Rest风格页面数据交互"></a>制作Rest风格页面数据交互</h3><p><strong>1、Controller层</strong></p>
+<p><img src="C:\Users\14115\AppData\Roaming\Typora\typora-user-images\image-20220911223530354.png" alt="image-20220911223530354"></p>
+<p><strong>2、对静态资源放行</strong></p>
+<p><img src="C:\Users\14115\AppData\Roaming\Typora\typora-user-images\image-20220911223722801.png" alt="image-20220911223722801"></p>
+<p><strong>3、前端进行异步提交</strong></p>
+<p><img src="C:\Users\14115\AppData\Roaming\Typora\typora-user-images\image-20220911223812374.png" alt="image-20220911223812374"></p>
+<h1 id="SSM整合"><a href="#SSM整合" class="headerlink" title="SSM整合"></a>SSM整合</h1><h2 id="配置整合"><a href="#配置整合" class="headerlink" title="配置整合"></a>配置整合</h2><h3 id="JdbcConfig"><a href="#JdbcConfig" class="headerlink" title="JdbcConfig:"></a>JdbcConfig:</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">JdbcConfig</span> &#123;</span><br><span class="line">    <span class="meta">@Value(&quot;$&#123;jdbc.driver&#125;&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> String driver;</span><br><span class="line">    <span class="meta">@Value(&quot;$&#123;jdbc.url&#125;&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> String url;</span><br><span class="line">    <span class="meta">@Value(&quot;$&#123;jdbc.username&#125;&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> String username;</span><br><span class="line">    <span class="meta">@Value(&quot;$&#123;jdbc.password&#125;&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> String password;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="keyword">public</span> DataSource <span class="title function_">dataSource</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="type">DruidDataSource</span> <span class="variable">dataSource</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">DruidDataSource</span>();</span><br><span class="line">        dataSource.setDriverClassName(driver);</span><br><span class="line">        dataSource.setUrl(url);</span><br><span class="line">        dataSource.setUsername(username);</span><br><span class="line">        dataSource.setPassword(password);</span><br><span class="line">        <span class="keyword">return</span> dataSource;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="keyword">public</span> PlatformTransactionManager <span class="title function_">transactionManager</span><span class="params">(DataSource dataSource)</span>&#123;</span><br><span class="line">        <span class="type">DataSourceTransactionManager</span> <span class="variable">ds</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">DataSourceTransactionManager</span>();</span><br><span class="line">        ds.setDataSource(dataSource);</span><br><span class="line">        <span class="keyword">return</span> ds;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="MybatisConfig"><a href="#MybatisConfig" class="headerlink" title="MybatisConfig:"></a>MybatisConfig:</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MyBatisConfig</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="keyword">public</span> SqlSessionFactoryBean <span class="title function_">sqlSessionFactory</span><span class="params">(DataSource dataSource)</span>&#123;</span><br><span class="line">        <span class="type">SqlSessionFactoryBean</span> <span class="variable">factoryBean</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">SqlSessionFactoryBean</span>();</span><br><span class="line">        factoryBean.setDataSource(dataSource);</span><br><span class="line">        factoryBean.setTypeAliasesPackage(<span class="string">&quot;com.itheima.domain&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> factoryBean;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="keyword">public</span> MapperScannerConfigurer <span class="title function_">mapperScannerConfigurer</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="type">MapperScannerConfigurer</span> <span class="variable">msc</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">MapperScannerConfigurer</span>();</span><br><span class="line">        msc.setBasePackage(<span class="string">&quot;com.itheima.dao&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> msc;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="ServletConfig"><a href="#ServletConfig" class="headerlink" title="ServletConfig:"></a>ServletConfig:</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ServletConfig</span> <span class="keyword">extends</span> <span class="title class_">AbstractAnnotationConfigDispatcherServletInitializer</span> &#123;</span><br><span class="line">    <span class="keyword">protected</span> Class&lt;?&gt;[] getRootConfigClasses() &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">Class</span>[]&#123;SpringConfig.class&#125;;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">protected</span> Class&lt;?&gt;[] getServletConfigClasses() &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">Class</span>[]&#123;SpringMvcConfig.class&#125;;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">protected</span> String[] getServletMappings() &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">String</span>[]&#123;<span class="string">&quot;/&quot;</span>&#125;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="SpringConfig"><a href="#SpringConfig" class="headerlink" title="SpringConfig:"></a>SpringConfig:</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@ComponentScan(&#123;&quot;com.itheima.service&quot;&#125;)</span></span><br><span class="line"><span class="meta">@PropertySource(&quot;classpath:jdbc.properties&quot;)</span></span><br><span class="line"><span class="meta">@Import(&#123;JdbcConfig.class,MyBatisConfig.class&#125;)</span></span><br><span class="line"><span class="meta">@EnableTransactionManagement</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SpringConfig</span> &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="SpringConfig-1"><a href="#SpringConfig-1" class="headerlink" title="SpringConfig:"></a>SpringConfig:</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@ComponentScan(&quot;com.itheima.controller&quot;)</span></span><br><span class="line"><span class="meta">@EnableWebMvc</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SpringMvcConfig</span> &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="功能模块"><a href="#功能模块" class="headerlink" title="功能模块"></a>功能模块</h2><p><img src="C:\Users\14115\AppData\Roaming\Typora\typora-user-images\image-20220912151444657.png" alt="image-20220912151444657"></p>
+<h2 id="表现层数据封装"><a href="#表现层数据封装" class="headerlink" title="表现层数据封装"></a>表现层数据封装</h2><p><img src="C:\Users\14115\AppData\Roaming\Typora\typora-user-images\image-20220912150859360.png" alt="image-20220912150859360"></p>
+<p><img src="C:\Users\14115\AppData\Roaming\Typora\typora-user-images\image-20220912150910081.png" alt="image-20220912150910081"></p>
+<h2 id="项目异常"><a href="#项目异常" class="headerlink" title="项目异常"></a>项目异常</h2><p><img src="C:\Users\14115\AppData\Roaming\Typora\typora-user-images\image-20220918115345914.png" alt="image-20220918115345914"></p>
+<h2 id="拦截器"><a href="#拦截器" class="headerlink" title="拦截器"></a>拦截器</h2><p><img src="C:\Users\14115\AppData\Roaming\Typora\typora-user-images\image-20220922212049396.png" alt="image-20220922212049396"></p>
+<h3 id="概念："><a href="#概念：" class="headerlink" title="概念："></a>概念：</h3><p>拦截器（Interceptor)是一种动态拦截方法调用的机制，在SpringMVC中动态拦截控制器方法的执行。</p>
+<p><strong>作用：</strong>1、方法前后做预先设定的功能</p>
+<p>​			2、组织原始方法的执行</p>
+<h3 id="拦截器与过滤器的区别"><a href="#拦截器与过滤器的区别" class="headerlink" title="拦截器与过滤器的区别"></a>拦截器与过滤器的区别</h3><p><img src="C:\Users\14115\AppData\Roaming\Typora\typora-user-images\image-20220922212713186.png" alt="image-20220922212713186"></p>
+<p><img src="C:\Users\14115\AppData\Roaming\Typora\typora-user-images\image-20220922213750931.png" alt="image-20220922213750931"></p>
+<p><img src="C:\Users\14115\AppData\Roaming\Typora\typora-user-images\image-20220922213832198.png" alt="image-20220922213832198"></p>
+<p><img src="C:\Users\14115\AppData\Roaming\Typora\typora-user-images\image-20220922213806163.png" alt="image-20220922213806163"></p>
+<p><img src="C:\Users\14115\AppData\Roaming\Typora\typora-user-images\image-20220922213711364.png" alt="image-20220922213711364"></p>
+<p><img src="C:\Users\14115\AppData\Roaming\Typora\typora-user-images\image-20220922220750576.png" alt="image-20220922220750576"></p>
+<p><img src="C:\Users\14115\AppData\Roaming\Typora\typora-user-images\image-20220922220905905.png" alt="image-20220922220905905"></p>
+<h1 id="Maven高级"><a href="#Maven高级" class="headerlink" title="Maven高级"></a>Maven高级</h1><h2 id="分模块开发"><a href="#分模块开发" class="headerlink" title="分模块开发"></a>分模块开发</h2><ul>
+<li><p><strong>意义：将原始模块按照功能拆分成若干个子模块，方便模块间的相互调用，接口共享</strong></p>
+<p>**1.**创建Maven模块</p>
+<p>**2.**编写模块代码</p>
+<p>**3.**通过Maven指令（install）安装模块到本地仓库</p>
+</li>
+</ul>
+<h2 id="依赖管理"><a href="#依赖管理" class="headerlink" title="依赖管理"></a>依赖管理</h2><p><img src="C:\Users\14115\AppData\Roaming\Typora\typora-user-images\image-20221127222557014.png" alt="image-20221127222557014"></p>
+<p><img src="C:\Users\14115\AppData\Roaming\Typora\typora-user-images\image-20221127222817293.png" alt="image-20221127222817293"></p>
+<h3 id="传递依赖与可选依赖"><a href="#传递依赖与可选依赖" class="headerlink" title="传递依赖与可选依赖"></a>传递依赖与可选依赖</h3><ul>
+<li>可选依赖：隐藏当前工程所依赖的资源，隐藏后对应的资源将不具有依赖传递性。（隐藏自己）</li>
+</ul>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.itheima<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>maven_03_pojo<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.0-SNAPSHOT<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">optional</span>&gt;</span>true<span class="tag">&lt;/<span class="name">optional</span>&gt;</span> //为true时，将该依赖设置为可选依赖</span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>排除依赖：排除依赖是隐藏当前资源对应的依赖关系（排除他人）</li>
+</ul>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.itheima<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>maven_04_dao<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.0-SNAPSHOT<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">  <span class="comment">&lt;!--排除依赖是隐藏当前资源对应的依赖关系--&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">exclusions</span>&gt;</span>            //排除该坐标的依赖</span><br><span class="line">    <span class="tag">&lt;<span class="name">exclusion</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>log4j<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>log4j<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">exclusion</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">exclusion</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.mybatis<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mybatis<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">exclusion</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">exclusions</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="继承与聚合"><a href="#继承与聚合" class="headerlink" title="继承与聚合"></a>继承与聚合</h2><p><strong>聚合</strong></p>
+<ul>
+<li>聚合：将多个模块组织成一个整体，同时进行项目构建的过程成为聚合</li>
+<li>聚合工程：通常是一个不具有业务功能的”空“工程（仅有一个pom文件）</li>
+<li>作用：可以使用聚合工程来解决批量模块同步构建的问题</li>
+</ul>
+<p>（默认打包方式jar，web打包方式war，聚合工程打包方式pom）</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">packaging</span>&gt;</span>pom<span class="tag">&lt;/<span class="name">packaging</span>&gt;</span>     //打包方式为pom</span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!--设置管理的模块名称--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">modules</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">module</span>&gt;</span>../maven_02_ssm<span class="tag">&lt;/<span class="name">module</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">module</span>&gt;</span>../maven_03_pojo<span class="tag">&lt;/<span class="name">module</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">module</span>&gt;</span>../maven_04_dao<span class="tag">&lt;/<span class="name">module</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">modules</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>继承</strong></p>
+<ul>
+<li>作用：简化配置</li>
+<li>减少版本冲突</li>
+</ul>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependencyManagement</span>&gt;</span>    //定义依赖管理</span><br><span class="line">    <span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>junit<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>junit<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;junit.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">scope</span>&gt;</span>test<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependencyManagement</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="C:\Users\14115\AppData\Roaming\Typora\typora-user-images\image-20221208162224854.png" alt="image-20221208162224854"></p>
+<h2 id="属性"><a href="#属性" class="headerlink" title="属性"></a>属性</h2><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--定义属性--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">properties</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">spring.version</span>&gt;</span>5.2.10.RELEASE<span class="tag">&lt;/<span class="name">spring.version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">junit.version</span>&gt;</span>4.12<span class="tag">&lt;/<span class="name">junit.version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">mybatis-spring.version</span>&gt;</span>1.3.0<span class="tag">&lt;/<span class="name">mybatis-spring.version</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--&lt;jdbc.url&gt;jdbc:mysql://127.0.0.1:3306/ssm_db&lt;/jdbc.url&gt;--&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">properties</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="配置文件加载属性"><a href="#配置文件加载属性" class="headerlink" title="配置文件加载属性"></a>配置文件加载属性</h3><p><img src="C:\Users\14115\AppData\Roaming\Typora\typora-user-images\image-20221208163810111.png" alt="image-20221208163810111"></p>
+<p><img src="C:\Users\14115\AppData\Roaming\Typora\typora-user-images\image-20221208163820948.png" alt="image-20221208163820948"></p>
+<p><img src="C:\Users\14115\AppData\Roaming\Typora\typora-user-images\image-20221208163938049.png" alt="image-20221208163938049"></p>
+<h3 id="版本管理"><a href="#版本管理" class="headerlink" title="版本管理"></a>版本管理</h3><p><img src="C:\Users\14115\AppData\Roaming\Typora\typora-user-images\image-20221208164444874.png" alt="image-20221208164444874"></p>
+<h2 id="多环境开发"><a href="#多环境开发" class="headerlink" title="多环境开发"></a>多环境开发</h2><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--配置多环境--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">profiles</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--开发环境--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">profile</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">id</span>&gt;</span>env_dep<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">properties</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">jdbc.url</span>&gt;</span>jdbc:mysql://127.1.1.1:3306/ssm_db<span class="tag">&lt;/<span class="name">jdbc.url</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">properties</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--设定是否为默认启动环境--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">activation</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">activeByDefault</span>&gt;</span>true<span class="tag">&lt;/<span class="name">activeByDefault</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">activation</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">profile</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--生产环境--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">profile</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">id</span>&gt;</span>env_pro<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">properties</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">jdbc.url</span>&gt;</span>jdbc:mysql://127.2.2.2:3306/ssm_db<span class="tag">&lt;/<span class="name">jdbc.url</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">properties</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">profile</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--测试环境--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">profile</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">id</span>&gt;</span>env_test<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">properties</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">jdbc.url</span>&gt;</span>jdbc:mysql://127.3.3.3:3306/ssm_db<span class="tag">&lt;/<span class="name">jdbc.url</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">properties</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">profile</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">profiles</span>&gt;</span></span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/09/19/SSM/" data-id="clmpc708600036oksdwrp6fqs" data-title="" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2023/09/19/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          (no title)
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2023/09/19/mysql/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title"></div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/09/">September 2023</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2023/09/19/html/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2023/09/19/java%E7%AC%94%E8%AE%B0/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2023/09/19/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2023/09/19/SSM/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2023/09/19/mysql/">(no title)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2023 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>
