@@ -1,0 +1,500 @@
+/* ========================================
+   现代化视差卡片博客设计
+   ======================================== */
+
+/* CSS变量定义 - 简约高级配色 */
+:root {
+  /* 主色调 - 现代渐变色 */
+  --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --accent-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  --dark-gradient: linear-gradient(135deg, #1f1c2c 0%, #928dab 100%);
+
+  /* 玻璃态效果 */
+  --glass-bg: rgba(255, 255, 255, 0.1);
+  --glass-border: rgba(255, 255, 255, 0.18);
+  --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+
+  /* 卡片阴影层级 */
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.08);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.12);
+  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.16);
+  --shadow-xl: 0 16px 48px rgba(0, 0, 0, 0.20);
+
+  /* 颜色 */
+  --text-primary: #2d3748;
+  --text-secondary: #718096;
+  --text-light: #a0aec0;
+  --bg-primary: #ffffff;
+  --bg-secondary: #f7fafc;
+  --bg-dark: #1a202c;
+
+  /* 动画时长 */
+  --transition-fast: 0.2s;
+  --transition-normal: 0.3s;
+  --transition-slow: 0.5s;
+
+  /* 卡片间距 */
+  --card-gap: 2rem;
+  --card-padding: 2rem;
+
+  /* 视差效果速度 */
+  --parallax-speed: 0.5;
+}
+
+/* 深色模式变量 */
+[data-theme="dark"] {
+  --text-primary: #f7fafc;
+  --text-secondary: #cbd5e0;
+  --text-light: #a0aec0;
+  --bg-primary: #1a202c;
+  --bg-secondary: #2d3748;
+  --glass-bg: rgba(0, 0, 0, 0.2);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+}
+
+/* ========================================
+   全局样式优化
+   ======================================== */
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+               "Helvetica Neue", Arial, sans-serif;
+  color: var(--text-primary);
+  background: var(--bg-secondary);
+  line-height: 1.6;
+  transition: background-color var(--transition-normal) ease;
+}
+
+/* 平滑滚动 */
+html {
+  scroll-behavior: smooth;
+}
+
+/* ========================================
+   页面头部优化
+   ======================================== */
+
+#page-header {
+  position: relative;
+  overflow: hidden;
+  background: var(--primary-gradient);
+  padding: 8rem 0 6rem;
+  transition: all var(--transition-slow) ease;
+}
+
+#page-header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background:
+    radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+  opacity: 0.5;
+  animation: headerGlow 8s ease-in-out infinite;
+}
+
+@keyframes headerGlow {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 0.8; }
+}
+
+#site-title {
+  font-size: 3rem;
+  font-weight: 700;
+  color: #ffffff;
+  text-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  letter-spacing: -0.02em;
+  margin: 0;
+  position: relative;
+  z-index: 1;
+}
+
+#scroll-down {
+  position: relative;
+  z-index: 1;
+  margin-top: 2rem;
+  animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(10px); }
+}
+
+/* ========================================
+   导航栏优化
+   ======================================== */
+
+#nav {
+  background: var(--glass-bg);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--glass-border);
+  box-shadow: var(--shadow-sm);
+  transition: all var(--transition-normal) ease;
+}
+
+#nav:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+/* ========================================
+   博文卡片 - 视差效果核心
+   ======================================== */
+
+#recent-posts {
+  max-width: 1200px;
+  margin: -4rem auto 4rem;
+  padding: 0 2rem;
+  position: relative;
+  z-index: 2;
+}
+
+.recent-post-item {
+  background: var(--bg-primary);
+  border-radius: 20px;
+  overflow: hidden;
+  margin-bottom: var(--card-gap);
+  box-shadow: var(--shadow-md);
+  transition: all var(--transition-normal) cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  /* 视差效果的关键 */
+  transform-style: preserve-3d;
+  will-change: transform, box-shadow;
+}
+
+/* 卡片背景渐变装饰 */
+.recent-post-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--primary-gradient);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--transition-normal) ease;
+}
+
+.recent-post-item:hover::before {
+  transform: scaleX(1);
+}
+
+/* 悬停效果 - 提升和阴影 */
+.recent-post-item:hover {
+  transform: translateY(-8px) scale(1.01);
+  box-shadow: var(--shadow-xl);
+}
+
+/* 视差卡片内容 */
+.recent-post-info {
+  padding: var(--card-padding);
+  position: relative;
+  z-index: 1;
+}
+
+/* 标题样式 */
+.recent-post-info .article-title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  text-decoration: none;
+  display: block;
+  margin-bottom: 1rem;
+  line-height: 1.3;
+  position: relative;
+  transition: all var(--transition-fast) ease;
+}
+
+.recent-post-info .article-title::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--primary-gradient);
+  transition: width var(--transition-normal) ease;
+}
+
+.recent-post-item:hover .article-title {
+  background: var(--primary-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  transform: translateX(8px);
+}
+
+.recent-post-item:hover .article-title::after {
+  width: 100%;
+}
+
+/* 元信息样式 */
+.article-meta-wrap {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+  opacity: 0.8;
+  transition: opacity var(--transition-fast) ease;
+}
+
+.recent-post-item:hover .article-meta-wrap {
+  opacity: 1;
+}
+
+.article-meta-wrap i {
+  margin-right: 0.5rem;
+  color: var(--text-light);
+}
+
+/* 文章摘要 */
+.recent-post-info .content {
+  color: var(--text-secondary);
+  font-size: 1rem;
+  line-height: 1.8;
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  transition: color var(--transition-fast) ease;
+}
+
+.recent-post-item:hover .content {
+  color: var(--text-primary);
+}
+
+/* ========================================
+   玻璃态卡片变体（可选）
+   ======================================== */
+
+.recent-post-item.glass-card {
+  background: var(--glass-bg);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid var(--glass-border);
+}
+
+/* ========================================
+   卡片加载动画
+   ======================================== */
+
+@keyframes cardFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.recent-post-item {
+  animation: cardFadeIn 0.6s ease-out backwards;
+}
+
+.recent-post-item:nth-child(1) { animation-delay: 0.1s; }
+.recent-post-item:nth-child(2) { animation-delay: 0.2s; }
+.recent-post-item:nth-child(3) { animation-delay: 0.3s; }
+.recent-post-item:nth-child(4) { animation-delay: 0.4s; }
+.recent-post-item:nth-child(5) { animation-delay: 0.5s; }
+.recent-post-item:nth-child(6) { animation-delay: 0.6s; }
+
+/* ========================================
+   聚焦效果 - 3D倾斜
+   ======================================== */
+
+.recent-post-item.card-3d-active {
+  transform: perspective(1000px) rotateX(var(--rotate-x, 0)) rotateY(var(--rotate-y, 0));
+}
+
+/* ========================================
+   归档页面卡片样式
+   ======================================== */
+
+.article-sort-item {
+  background: var(--bg-primary);
+  border-radius: 16px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  border-left: 4px solid transparent;
+  transition: all var(--transition-normal) ease;
+  box-shadow: var(--shadow-sm);
+  position: relative;
+  overflow: hidden;
+}
+
+.article-sort-item::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: var(--primary-gradient);
+  transform: scaleY(0);
+  transform-origin: bottom;
+  transition: transform var(--transition-normal) ease;
+}
+
+.article-sort-item:hover {
+  transform: translateX(8px);
+  box-shadow: var(--shadow-lg);
+}
+
+.article-sort-item:hover::before {
+  transform: scaleY(1);
+  transform-origin: top;
+}
+
+.article-sort-item-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  text-decoration: none;
+  transition: all var(--transition-fast) ease;
+}
+
+.article-sort-item:hover .article-sort-item-title {
+  background: var(--primary-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ========================================
+   侧边栏优化
+   ======================================== */
+
+#sidebar {
+  background: var(--glass-bg);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-right: 1px solid var(--glass-border);
+}
+
+.avatar-img img {
+  border-radius: 50%;
+  border: 4px solid rgba(255, 255, 255, 0.2);
+  box-shadow: var(--shadow-lg);
+  transition: all var(--transition-normal) ease;
+}
+
+.avatar-img img:hover {
+  transform: scale(1.05) rotate(5deg);
+  box-shadow: var(--shadow-xl);
+}
+
+/* ========================================
+   响应式设计
+   ======================================== */
+
+@media (max-width: 768px) {
+  :root {
+    --card-gap: 1.5rem;
+    --card-padding: 1.5rem;
+  }
+
+  #site-title {
+    font-size: 2rem;
+  }
+
+  #page-header {
+    padding: 6rem 0 4rem;
+  }
+
+  #recent-posts {
+    margin: -3rem auto 3rem;
+    padding: 0 1rem;
+  }
+
+  .recent-post-info .article-title {
+    font-size: 1.5rem;
+  }
+
+  .recent-post-item:hover {
+    transform: translateY(-4px) scale(1.005);
+  }
+}
+
+/* ========================================
+   滚动条美化
+   ======================================== */
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--primary-gradient);
+  border-radius: 5px;
+  transition: all var(--transition-fast) ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-gradient);
+}
+
+/* ========================================
+   加载性能优化
+   ======================================== */
+
+/* GPU加速 */
+.recent-post-item,
+.article-sort-item,
+#nav,
+.avatar-img img {
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+}
+
+/* 减少重绘 */
+* {
+  box-sizing: border-box;
+}
+
+/* ========================================
+   辅助类
+   ======================================== */
+
+.parallax-layer {
+  position: relative;
+  transform-style: preserve-3d;
+}
+
+.fade-in {
+  animation: cardFadeIn 0.6s ease-out;
+}
+
+.gradient-text {
+  background: var(--primary-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ========================================
+   打印样式
+   ======================================== */
+
+@media print {
+  .recent-post-item,
+  .article-sort-item {
+    box-shadow: none;
+    border: 1px solid #e2e8f0;
+  }
+}
